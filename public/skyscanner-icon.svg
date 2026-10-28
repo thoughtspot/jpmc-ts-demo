@@ -1,0 +1,13 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" rx="20" fill="#0061e3"/>
+  <!-- 5 rays going up from center point -->
+  <path d="M50 22V42" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <path d="M50 42L35 27" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <path d="M50 42L65 27" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <path d="M50 42L25 35" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <path d="M50 42L75 35" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <!-- Curved horizon -->
+  <path d="M15 72C35 62 65 62 85 72" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Chevron -->
+  <path d="M40 68L50 78L60 68" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+.env
+.env.*
+!.env.example
+.vercel/
+
+# Large local recordings
+*.mov
+
+# Unrelated demos / local tooling kept in this working dir (repo = Salesloft app only)
+clari/
+hirevue/
+hivewatch/
+simfoni/
+output/
+.vercel
+.env*
