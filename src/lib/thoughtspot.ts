@@ -51,7 +51,13 @@ async function fetchAuthToken(): Promise<string> {
     if (res.status === USERNAME_REJECTED_STATUS) {
       throw new UsernameNotAllowedError(`Username not allowed: ${tokenUsername}`);
     }
-    if (!res.ok) throw new Error(`Token request failed (${res.status})`);
+    if (!res.ok) {
+      // Vercel puts its own error code (e.g. FUNCTION_INVOCATION_FAILED) in this header.
+      const vercelError = res.headers.get('x-vercel-error');
+      const detail = (await res.text()).slice(0, 200);
+      console.error('[ts-token] request failed', { status: res.status, vercelError, detail });
+      throw new Error(`Token request failed (${res.status}${vercelError ? ` ${vercelError}` : ''})`);
+    }
     return res.text();
   })();
   tokenPromise = pending;

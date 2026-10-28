@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv, Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
-import { fetchThoughtSpotToken, parseUsername, UsernameRejectedError } from './server/tokenService'
+import { describeError, fetchThoughtSpotToken, parseUsername, UsernameRejectedError } from './server/tokenService'
 
 const MAX_BODY_BYTES = 4096
 
@@ -38,7 +38,7 @@ function tsTokenDevApi(env: Record<string, string>): Plugin {
           res.setHeader('Content-Type', 'text/plain')
           res.end(token)
         } catch (err) {
-          console.error('[ts-token]', err instanceof Error ? err.message : err)
+          console.error('[ts-token] failed:', describeError(err))
           if (err instanceof UsernameRejectedError) {
             res.statusCode = 403
             res.end('Username not allowed')

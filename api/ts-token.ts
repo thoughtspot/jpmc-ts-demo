@@ -1,13 +1,15 @@
 // Vercel function: POST /api/ts-token { username } → plain-text ThoughtSpot auth token.
 import {
+  describeError,
   fetchThoughtSpotToken,
   parseUsername,
   UsernameRejectedError,
-} from '../server/tokenService';
+} from '../server/tokenService.js';
 
 const NO_STORE = { 'Cache-Control': 'no-store' };
 
 export async function POST(request: Request): Promise<Response> {
+  console.log('[ts-token] request received');
   let body: { username?: unknown } | null = null;
   try {
     body = await request.json();
@@ -16,16 +18,18 @@ export async function POST(request: Request): Promise<Response> {
   }
   const username = parseUsername(body?.username);
   if (!username) {
+    console.warn('[ts-token] rejected: missing or invalid username');
     return new Response('A valid username is required', { status: 400, headers: NO_STORE });
   }
 
   try {
     const token = await fetchThoughtSpotToken(process.env, username);
+    console.log('[ts-token] token issued');
     return new Response(token, {
       headers: { ...NO_STORE, 'Content-Type': 'text/plain' },
     });
   } catch (err) {
-    console.error('[ts-token]', err instanceof Error ? err.message : err);
+    console.error('[ts-token] failed:', describeError(err));
     if (err instanceof UsernameRejectedError) {
       return new Response('Username not allowed', { status: 403, headers: NO_STORE });
     }
