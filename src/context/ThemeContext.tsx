@@ -8,7 +8,7 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
-const STORAGE_KEY = 'jpmorgan-chase-theme';
+const STORAGE_KEY = 'chase-travel-theme';
 
 function initialTheme(): ThemeName {
   // The dark-mode switch is hidden; always start in light so a theme saved

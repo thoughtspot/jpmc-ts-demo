@@ -3,7 +3,7 @@
 // CTA into the app, and a few static highlight stats. Tailor the design/copy to
 // the client (or a screenshot they provide) — this is a starting point.
 import { ArrowRight } from 'lucide-react';
-import JpmorganChaseLogo from '../components/JpmorganChaseLogo';
+import ChaseTravelLogo from '../components/ChaseTravelLogo';
 import { CONTENT } from '../content';
 import type { TabId } from '../components/TopBar';
 
@@ -62,7 +62,7 @@ export default function Landing({ onNavigate }: Props) {
         {/* Static brand panel — a clean gradient card with the logo, no data. */}
         <div className="home-brand" aria-hidden="true">
           <div className="home-brand-card">
-            <JpmorganChaseLogo className="home-brand-logo" size={44} />
+            <ChaseTravelLogo className="home-brand-logo" size={44} />
           </div>
         </div>
       </div>

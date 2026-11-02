@@ -64,7 +64,7 @@ export default function BidModal({ open, context, onClose }: Props) {
               Your bid for{' '}
               <strong>{corridor || 'this lane'}</strong>
               {carrier ? <> to <strong>{carrier}</strong></> : null} has been sent to the
-              JpmorganChase capacity desk.
+              Chase Travel capacity desk.
             </p>
             <button className="sl-hfilter-apply bid-done" onClick={onClose}>
               Done
@@ -74,7 +74,7 @@ export default function BidModal({ open, context, onClose }: Props) {
           <div className="bid-body">
             <p className="bid-lead">
               Pre-filled from the selected lane. Review and submit to request a carrier
-              bid through JpmorganChase.
+              bid through Chase Travel.
             </p>
 
             <div className="bid-grid">

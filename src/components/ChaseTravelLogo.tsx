@@ -1,4 +1,4 @@
-// Official JpmorganChase logo (fetched from jpmorgan-chase.com, "on-light" variant).
+// Official Chase Travel logo (fetched from chase-travel.com, "on-light" variant).
 // Inlined so its ink can follow `currentColor` — dark evergreen on light
 // surfaces, light on dark surfaces — while keeping the lime accent. Color is
 // set by the host (.sl-logo → var(--sl-evergreen)); height comes from `size`.
@@ -12,13 +12,13 @@ interface Props {
   wordmark?: boolean;
 }
 
-export default function JpmorganChaseLogo({ className, size = 26 }: Props) {
+export default function ChaseTravelLogo({ className, size = 26 }: Props) {
   return (
     <span
       className={`sl-logo ${className ?? ''}`}
       style={{ height: size }}
       role="img"
-      aria-label="JpmorganChase"
+      aria-label="Chase Travel"
       dangerouslySetInnerHTML={{ __html: logoRaw }}
     />
   );

@@ -1,4 +1,4 @@
-// Upgrade prompt shown on the 3rd Ask JpmorganChase AI question.
+// Upgrade prompt shown on the 3rd Ask Chase Travel AI question.
 //  Step 1 (plans): the Premium value prop + "Upgrade to Premium".
 //  Step 2 (checkout): a PLG query-pack offer with Pay Now / Schedule Meeting
 //  and an inline scheduler. Theme-aware via the app's --sl-* tokens.
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const PREMIUM_FEATURES = [
-  'Unlimited Ask JpmorganChase AI questions',
+  'Unlimited Ask Chase Travel AI questions',
   'Drill-down & underlying-data access',
   'CSV, Excel & PDF exports',
   'Priority capacity & lane insights',
@@ -85,7 +85,7 @@ export default function TrialModal({ open, remaining, onClose }: Props) {
             </h2>
             <p className="sl-trial-sub">
               {done === 'paid'
-                ? <>Your counter has been reset to <strong>500 queries</strong>. You can keep asking JpmorganChase AI right away.</>
+                ? <>Your counter has been reset to <strong>500 queries</strong>. You can keep asking Chase Travel AI right away.</>
                 : <>You&rsquo;re booked with <strong>Brian</strong> on <strong>{MONTHS[m]} {selDay}</strong> at <strong>{selSlot}</strong>. A calendar invite is on its way.</>}
             </p>
             <button className="sl-trial-cta" onClick={onClose}>Done</button>
@@ -95,8 +95,8 @@ export default function TrialModal({ open, remaining, onClose }: Props) {
           /* ---- step 1: plans ---- */
           <div className="sl-trial-body">
             <div className="sl-trial-icon"><Sparkles size={24} /></div>
-            <div className="sl-trial-eyebrow">JpmorganChase Premium</div>
-            <h2 className="sl-trial-title">Unlock unlimited JpmorganChase AI</h2>
+            <div className="sl-trial-eyebrow">Chase Travel Premium</div>
+            <h2 className="sl-trial-title">Unlock unlimited Chase Travel AI</h2>
             <p className="sl-trial-sub">
               {remaining > 0
                 ? <>You have <strong>{remaining}</strong> free question{remaining === 1 ? '' : 's'} left on the trial. </>
@@ -113,7 +113,7 @@ export default function TrialModal({ open, remaining, onClose }: Props) {
             </button>
             <button className="sl-trial-dismiss" onClick={onClose}>Maybe later</button>
             <p className="sl-trial-fine">
-              Demo experience — no payment is taken. Talk to your JpmorganChase account team for production pricing.
+              Demo experience — no payment is taken. Talk to your Chase Travel account team for production pricing.
             </p>
           </div>
         ) : (

@@ -2,7 +2,7 @@ import { useState, FormEvent } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { UsernameNotAllowedError } from '../lib/thoughtspot';
 import { Eye, EyeOff } from 'lucide-react';
-import JpmorganChaseLogo from '../components/JpmorganChaseLogo';
+import ChaseTravelLogo from '../components/ChaseTravelLogo';
 import { CONTENT } from '../content';
 
 // Only emails at this domain may sign in (also enforced by /api/ts-token).
@@ -47,7 +47,7 @@ export default function Login() {
   return (
     <div className="login-page">
       <div className="login-left">
-        <JpmorganChaseLogo className="login-logo" size={34} />
+        <ChaseTravelLogo className="login-logo" size={34} />
         <div className="login-hero-content">
           <h1 className="login-hero-title" dangerouslySetInnerHTML={{ __html: CONTENT.loginTitleHtml }} />
           <p className="login-hero-subtitle">{CONTENT.loginSubtitle}</p>

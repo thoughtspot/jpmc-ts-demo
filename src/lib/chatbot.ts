@@ -1,14 +1,14 @@
 import { CONTENT } from '../content';
 // ---------------------------------------------------------------------------
-// JpmorganChase AI chatbot brain (host-owned).
+// Chase Travel AI chatbot brain (host-owned).
 //
-// Uses Claude to either (a) answer general JpmorganChase questions as text, or
+// Uses Claude to either (a) answer general Chase Travel questions as text, or
 // (b) route a data/analytics question to ThoughtSpot Spotter. The actual data
 // answer is rendered by a BodylessConversation embed in the chat UI — this
 // module only decides *what* to do and produces the Spotter query.
 //
 // Set VITE_ANTHROPIC_API_KEY (and optionally VITE_ANTHROPIC_MODEL) to enable
-// the LLM. Without a key, a keyword router + small JpmorganChase FAQ is used so the
+// the LLM. Without a key, a keyword router + small Chase Travel FAQ is used so the
 // widget still works for demos.
 // ---------------------------------------------------------------------------
 
@@ -30,42 +30,42 @@ export type RouteResult =
   | { kind: 'text'; text: string; links?: DocLink[] }
   | { kind: 'analytics'; query: string; preamble: string };
 
-/** Canonical JpmorganChase resources the assistant can point users to. */
-export const JpmorganChase_DOCS: Record<string, DocLink> = {
-  home: { label: 'jpmorgan-chase.com', url: 'https://www.jpmorgan-chase.com' },
-  help: { label: 'Help Center', url: 'https://help.jpmorgan-chase.com' },
-  cadence: { label: 'Cadence overview', url: 'https://www.jpmorgan-chase.com/platform/cadence' },
-  conversations: { label: 'Conversations', url: 'https://www.jpmorgan-chase.com/platform/conversations' },
-  deals: { label: 'Deals', url: 'https://www.jpmorgan-chase.com/platform/deals' },
-  forecast: { label: 'Forecast', url: 'https://www.jpmorgan-chase.com/platform/forecast' },
-  rhythm: { label: 'Rhythm AI', url: 'https://www.jpmorgan-chase.com/platform/rhythm' },
-  developers: { label: 'Developer & API docs', url: 'https://developers.jpmorgan-chase.com' },
-  university: { label: 'JpmorganChase University', url: 'https://university.jpmorgan-chase.com' },
-  pricing: { label: 'Pricing', url: 'https://www.jpmorgan-chase.com/pricing' },
+/** Canonical Chase Travel resources the assistant can point users to. */
+export const ChaseTravel_DOCS: Record<string, DocLink> = {
+  home: { label: 'chase-travel.com', url: 'https://www.chase-travel.com' },
+  help: { label: 'Help Center', url: 'https://help.chase-travel.com' },
+  cadence: { label: 'Cadence overview', url: 'https://www.chase-travel.com/platform/cadence' },
+  conversations: { label: 'Conversations', url: 'https://www.chase-travel.com/platform/conversations' },
+  deals: { label: 'Deals', url: 'https://www.chase-travel.com/platform/deals' },
+  forecast: { label: 'Forecast', url: 'https://www.chase-travel.com/platform/forecast' },
+  rhythm: { label: 'Rhythm AI', url: 'https://www.chase-travel.com/platform/rhythm' },
+  developers: { label: 'Developer & API docs', url: 'https://developers.chase-travel.com' },
+  university: { label: 'Chase Travel University', url: 'https://university.chase-travel.com' },
+  pricing: { label: 'Pricing', url: 'https://www.chase-travel.com/pricing' },
 };
 
 /** True when an LLM key is configured (drives a small UI hint). */
 export const hasLLM = !!ANTHROPIC_KEY;
 
-const SYSTEM_PROMPT = `You are "JpmorganChase AI", the in-app assistant for the JpmorganChase revenue-orchestration platform.
+const SYSTEM_PROMPT = `You are "Chase Travel AI", the in-app assistant for the Chase Travel revenue-orchestration platform.
 
 You handle two kinds of questions:
-1. General JpmorganChase / sales-engagement questions — what JpmorganChase is, what cadences/Conversations/Deals are, how-to, definitions, best practices. Answer these yourself, concisely (2–5 sentences), in a friendly, professional tone.
+1. General Chase Travel / sales-engagement questions — what Chase Travel is, what cadences/Conversations/Deals are, how-to, definitions, best practices. Answer these yourself, concisely (2–5 sentences), in a friendly, professional tone.
 2. Questions about the user's OWN data / analytics — metrics, counts, trends, pipeline, revenue, cadence performance, "how many", "show me", "top N", comparisons, time series, rates. For these you MUST NOT invent numbers. Instead call the show_analytics tool with a concise natural-language query for a BI engine (ThoughtSpot Spotter), stripping greetings and pleasantries.
 
 If a request is ambiguous, prefer a short text answer. Never fabricate specific data values.
 
-When you answer a general JpmorganChase question, point the user to the single most relevant resource by including its plain URL at the end of your answer. Available resources:
-- JpmorganChase site: https://www.jpmorgan-chase.com
-- Help Center: https://help.jpmorgan-chase.com
-- Cadence: https://www.jpmorgan-chase.com/platform/cadence
-- Conversations: https://www.jpmorgan-chase.com/platform/conversations
-- Deals: https://www.jpmorgan-chase.com/platform/deals
-- Forecast: https://www.jpmorgan-chase.com/platform/forecast
-- Rhythm AI: https://www.jpmorgan-chase.com/platform/rhythm
-- Developer & API docs: https://developers.jpmorgan-chase.com
-- JpmorganChase University (training): https://university.jpmorgan-chase.com
-- Pricing: https://www.jpmorgan-chase.com/pricing`;
+When you answer a general Chase Travel question, point the user to the single most relevant resource by including its plain URL at the end of your answer. Available resources:
+- Chase Travel site: https://www.chase-travel.com
+- Help Center: https://help.chase-travel.com
+- Cadence: https://www.chase-travel.com/platform/cadence
+- Conversations: https://www.chase-travel.com/platform/conversations
+- Deals: https://www.chase-travel.com/platform/deals
+- Forecast: https://www.chase-travel.com/platform/forecast
+- Rhythm AI: https://www.chase-travel.com/platform/rhythm
+- Developer & API docs: https://developers.chase-travel.com
+- Chase Travel University (training): https://university.chase-travel.com
+- Pricing: https://www.chase-travel.com/pricing`;
 
 const TOOL = {
   name: 'show_analytics',
@@ -149,7 +149,7 @@ const ANALYTICS_RE = new RegExp(
   'i',
 );
 
-const JpmorganChase_OVERVIEW = CONTENT.chatbot.overview;
+const ChaseTravel_OVERVIEW = CONTENT.chatbot.overview;
 
 // --- typo / fuzzy tolerance -------------------------------------------------
 // Brand token (spaceless, lowercase), derived from the company name so this
@@ -202,102 +202,102 @@ interface FaqEntry {
 const FAQ: FaqEntry[] = [
   {
     // Value prop / "why" / benefits — must come BEFORE the general overview
-    // entry so "what is JpmorganChase's value prop" isn't caught by it.
-    re: /value ?prop|value proposition|why (use|choose|jpmorgan-chase|would i|do i need)|benefits?\b|roi|what makes .*(different|special|better)|differentiat|why should/i,
-    text: 'JpmorganChase’s value is simple: more pipeline from less busywork. It puts every touchpoint, call, deal, and forecast in one place — with AI answers on live data — so reps act on the highest-impact work first and managers coach and forecast with confidence.',
-    links: [JpmorganChase_DOCS.home, JpmorganChase_DOCS.help],
+    // entry so "what is Chase Travel's value prop" isn't caught by it.
+    re: /value ?prop|value proposition|why (use|choose|chase-travel|would i|do i need)|benefits?\b|roi|what makes .*(different|special|better)|differentiat|why should/i,
+    text: 'Chase Travel’s value is simple: more pipeline from less busywork. It puts every touchpoint, call, deal, and forecast in one place — with AI answers on live data — so reps act on the highest-impact work first and managers coach and forecast with confidence.',
+    links: [ChaseTravel_DOCS.home, ChaseTravel_DOCS.help],
   },
   {
-    re: /(what|tell me|explain|describe|who).*(jpmorgan-chase)|jpmorgan-chase.*(do|about|is|platform|used for)|^jpmorgan-chase\b/i,
-    text: JpmorganChase_OVERVIEW,
-    links: [JpmorganChase_DOCS.home, JpmorganChase_DOCS.help],
+    re: /(what|tell me|explain|describe|who).*(chase-travel)|chase-travel.*(do|about|is|platform|used for)|^chase-travel\b/i,
+    text: ChaseTravel_OVERVIEW,
+    links: [ChaseTravel_DOCS.home, ChaseTravel_DOCS.help],
   },
   {
     re: /cadence/i,
     text: 'A cadence is a structured, multi-step sequence of touchpoints — emails, calls, LinkedIn steps, and other tasks spaced over days — that reps follow to engage prospects consistently and at scale. You can see each cadence and its performance in the Cadences tab.',
-    links: [JpmorganChase_DOCS.cadence, JpmorganChase_DOCS.help],
+    links: [ChaseTravel_DOCS.cadence, ChaseTravel_DOCS.help],
   },
   {
     re: /conversation|call recording|call intelligence|gong|transcri/i,
-    text: 'Conversations is JpmorganChase’s call and meeting intelligence. It records, transcribes, and analyzes sales calls so reps and managers can review talk-time, key moments, and coaching opportunities, and surface insights automatically.',
-    links: [JpmorganChase_DOCS.conversations],
+    text: 'Conversations is Chase Travel’s call and meeting intelligence. It records, transcribes, and analyzes sales calls so reps and managers can review talk-time, key moments, and coaching opportunities, and surface insights automatically.',
+    links: [ChaseTravel_DOCS.conversations],
   },
   {
     re: /\bdeals?\b|pipeline management|opportunit/i,
-    text: 'Deals is JpmorganChase’s pipeline and opportunity workspace. It gives reps a single place to manage open opportunities, track deal health and next steps, and keep CRM data up to date so forecasting stays accurate.',
-    links: [JpmorganChase_DOCS.deals],
+    text: 'Deals is Chase Travel’s pipeline and opportunity workspace. It gives reps a single place to manage open opportunities, track deal health and next steps, and keep CRM data up to date so forecasting stays accurate.',
+    links: [ChaseTravel_DOCS.deals],
   },
   {
     re: /forecast/i,
     text: 'Forecast helps revenue teams predict and commit to numbers with confidence — rolling up rep and team projections, comparing them to quota, and highlighting risk so managers can course-correct early.',
-    links: [JpmorganChase_DOCS.forecast],
+    links: [ChaseTravel_DOCS.forecast],
   },
   {
     re: /rhythm|ai engine|prioriti|guided sell/i,
-    text: 'Rhythm is JpmorganChase’s AI engine. It turns buyer signals into a prioritized, guided to-do list for reps — telling them who to engage next and what action to take — so the highest-impact work happens first.',
-    links: [JpmorganChase_DOCS.rhythm],
+    text: 'Rhythm is Chase Travel’s AI engine. It turns buyer signals into a prioritized, guided to-do list for reps — telling them who to engage next and what action to take — so the highest-impact work happens first.',
+    links: [ChaseTravel_DOCS.rhythm],
   },
   {
     re: /\b(api|developer|integration api|webhook|rest api|sdk)\b/i,
-    text: 'JpmorganChase has a full REST API and developer platform for building integrations, syncing data, and automating workflows — including OAuth, people/cadence endpoints, and webhooks.',
-    links: [JpmorganChase_DOCS.developers],
+    text: 'Chase Travel has a full REST API and developer platform for building integrations, syncing data, and automating workflows — including OAuth, people/cadence endpoints, and webhooks.',
+    links: [ChaseTravel_DOCS.developers],
   },
   {
     re: /train|learn|university|onboard|certification|course/i,
-    text: 'JpmorganChase University offers guided training, courses, and certifications to help reps and admins get the most out of the platform.',
-    links: [JpmorganChase_DOCS.university],
+    text: 'Chase Travel University offers guided training, courses, and certifications to help reps and admins get the most out of the platform.',
+    links: [ChaseTravel_DOCS.university],
   },
   {
     re: /pric|cost|plan|tier|subscription|how much (is|does)/i,
-    text: 'JpmorganChase is sold in tiered plans for teams of different sizes and needs. For current packaging and to talk to sales, see the pricing page.',
-    links: [JpmorganChase_DOCS.pricing],
+    text: 'Chase Travel is sold in tiered plans for teams of different sizes and needs. For current packaging and to talk to sales, see the pricing page.',
+    links: [ChaseTravel_DOCS.pricing],
   },
   {
     re: /who (uses|is it for)|for sales|sdr|bdr|account exec|\bae\b|sales team/i,
-    text: 'JpmorganChase is used by revenue teams — SDRs/BDRs running outbound, Account Executives managing deals, and sales managers coaching and forecasting — to standardize their workflow and engage buyers more effectively.',
-    links: [JpmorganChase_DOCS.home],
+    text: 'Chase Travel is used by revenue teams — SDRs/BDRs running outbound, Account Executives managing deals, and sales managers coaching and forecasting — to standardize their workflow and engage buyers more effectively.',
+    links: [ChaseTravel_DOCS.home],
   },
   {
     re: /\b(crm|salesforce|hubspot|integrat|connect)\b/i,
-    text: 'JpmorganChase connects to your CRM (such as Salesforce or HubSpot) and your email/calendar, keeping activity and records in sync automatically so reps work in one place and data stays accurate.',
-    links: [JpmorganChase_DOCS.help, JpmorganChase_DOCS.developers],
+    text: 'Chase Travel connects to your CRM (such as Salesforce or HubSpot) and your email/calendar, keeping activity and records in sync automatically so reps work in one place and data stays accurate.',
+    links: [ChaseTravel_DOCS.help, ChaseTravel_DOCS.developers],
   },
   {
     re: /reporting|analytics(?!\?)|insights|dashboard/i,
-    text: 'JpmorganChase Analytics gives teams visibility into engagement and pipeline — cadence performance, activity, conversion, and revenue trends. In this app you can explore that in the Analytics and Cadences tabs, or just ask me a data question here.',
-    links: [JpmorganChase_DOCS.help],
+    text: 'Chase Travel Analytics gives teams visibility into engagement and pipeline — cadence performance, activity, conversion, and revenue trends. In this app you can explore that in the Analytics and Cadences tabs, or just ask me a data question here.',
+    links: [ChaseTravel_DOCS.help],
   },
   {
     re: /\b(hi|hello|hey|yo|sup)\b/i,
-    text: 'Hi! I’m JpmorganChase AI. Ask me about JpmorganChase, or ask a data question like “meetings booked this quarter.”',
+    text: 'Hi! I’m Chase Travel AI. Ask me about Chase Travel, or ask a data question like “meetings booked this quarter.”',
   },
   {
     re: /help|what can (you|i)|how do you work|what should i ask|examples?|what can i ask/i,
-    text: 'I can answer questions about JpmorganChase and how it works (with links to the docs), and I can pull live analytics from your data — try “show meetings booked by week” or “top cadences by influenced pipeline.”',
-    links: [JpmorganChase_DOCS.help],
+    text: 'I can answer questions about Chase Travel and how it works (with links to the docs), and I can pull live analytics from your data — try “show meetings booked by week” or “top cadences by influenced pipeline.”',
+    links: [ChaseTravel_DOCS.help],
   },
   {
     re: /who are you|what are you|your name|are you (a )?(bot|ai|human|real)|who am i (talking|speaking)/i,
-    text: 'I’m JpmorganChase AI — the built-in assistant. I can explain how JpmorganChase works and answer live questions about your cadences, deals, and pipeline.',
-    links: [JpmorganChase_DOCS.help],
+    text: 'I’m Chase Travel AI — the built-in assistant. I can explain how Chase Travel works and answer live questions about your cadences, deals, and pipeline.',
+    links: [ChaseTravel_DOCS.help],
   },
   {
     re: /thank|thanks|thx|appreciate|cheers|awesome|great|nice one|perfect/i,
-    text: 'Happy to help! Ask me anything else about JpmorganChase, or try a data question like “top cadences by influenced pipeline.”',
+    text: 'Happy to help! Ask me anything else about Chase Travel, or try a data question like “top cadences by influenced pipeline.”',
   },
   {
     re: /\b(bye|goodbye|see ya|later|that'?s all|done)\b/i,
-    text: 'Anytime — I’m here whenever you need JpmorganChase answers or a quick data pull. 👋',
+    text: 'Anytime — I’m here whenever you need Chase Travel answers or a quick data pull. 👋',
   },
   {
     re: /(secure|security|privacy|safe|gdpr|soc ?2|compliance|encrypt|my data safe)/i,
-    text: 'JpmorganChase is built for enterprise data: access is role-based, data is encrypted in transit and at rest, and the platform supports common compliance requirements. Your admin controls who can see what.',
-    links: [JpmorganChase_DOCS.help],
+    text: 'Chase Travel is built for enterprise data: access is role-based, data is encrypted in transit and at rest, and the platform supports common compliance requirements. Your admin controls who can see what.',
+    links: [ChaseTravel_DOCS.help],
   },
   {
     re: /(contact|support|talk to|reach|sales team|get in touch|email you|phone|help me)/i,
-    text: 'You can reach the JpmorganChase team through the Help Center, or talk to your account team for anything account-specific. In here, I can answer product questions and pull live analytics.',
-    links: [JpmorganChase_DOCS.help],
+    text: 'You can reach the Chase Travel team through the Help Center, or talk to your account team for anything account-specific. In here, I can answer product questions and pull live analytics.',
+    links: [ChaseTravel_DOCS.help],
   },
 ];
 
@@ -332,7 +332,7 @@ function fallbackRoute(msg: string): RouteResult {
 
   // Mentions the brand — even misspelled — but nothing matched: give the overview.
   if (mentionsBrand(n))
-    return { kind: 'text', text: JpmorganChase_OVERVIEW, links: [JpmorganChase_DOCS.home, JpmorganChase_DOCS.help] };
+    return { kind: 'text', text: ChaseTravel_OVERVIEW, links: [ChaseTravel_DOCS.home, ChaseTravel_DOCS.help] };
 
   // Data-ish but definition-phrased and unmatched by FAQ → still try Spotter.
   if (isData) return analyticsResult(msg);
@@ -341,6 +341,6 @@ function fallbackRoute(msg: string): RouteResult {
   return {
     kind: 'text',
     text: `I’m ${CONTENT.aiName}, here to help with anything about ${CONTENT.company} — what it does, how features like cadences, deals, and forecasting work, plus live analytics on your data. Try “what does ${CONTENT.company} do?”, “how do cadences work?”, or “show meetings booked by week.”`,
-    links: [JpmorganChase_DOCS.help],
+    links: [ChaseTravel_DOCS.help],
   };
 }

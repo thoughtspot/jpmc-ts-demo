@@ -1,7 +1,7 @@
 /* ===========================================================================
-   JpmorganChase Analytics — theme approximating jpmorgan-chase.com's 2024 rebrand:
+   Chase Travel Analytics — theme approximating chase-travel.com's 2024 rebrand:
    tonal greens, warm cream surfaces, a humanist-serif display face (Fraunces,
-   in place of JpmorganChase's "Nib") + Open Sans for UI text, matching chase.com/travel.
+   in place of Chase Travel's "Nib") + Open Sans for UI text, matching chase.com/travel.
    =========================================================================== */
 
 :root {
@@ -13,10 +13,10 @@
   --sl-green: #0F1F80;
   --sl-green-dark: #2B3BA5;
   --sl-primary-rgb: 15, 31, 128;
-  --jpmorgan-chase-blue: #0F1F80;
+  --chase-travel-blue: #0F1F80;
   --sl-gold: #0F1F80;
   --sl-gold-ink: #ffffff;
-  --jpmorgan-chase-grad: linear-gradient(90deg, #0F1F80 0%, #0F1F80 100%);
+  --chase-travel-grad: linear-gradient(90deg, #0F1F80 0%, #0F1F80 100%);
   --sl-mint: #e3e6f4;
   --sl-mint-2: #c9cfea;
   --sl-coral: #c0392b;
@@ -50,10 +50,10 @@
   --sl-green: #117ACA;
   --sl-green-dark: #0077C8;
   --sl-primary-rgb: 17, 122, 202;
-  --jpmorgan-chase-blue: #0077C8;
+  --chase-travel-blue: #0077C8;
   --sl-gold: #0077C8;
   --sl-gold-ink: #ffffff;
-  --jpmorgan-chase-grad: linear-gradient(90deg, #117ACA 0%, #0077C8 100%);
+  --chase-travel-grad: linear-gradient(90deg, #117ACA 0%, #0077C8 100%);
   --sl-mint: #082132;
   --sl-mint-2: #072b45;
   --sl-coral: #d67e75;
@@ -846,7 +846,7 @@ button {
   color: var(--sl-ink);
 }
 
-.jpmorgan-chase-ai-btn {
+.chase-travel-ai-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -861,11 +861,11 @@ button {
   box-shadow: 0 4px 14px rgba(36, 36, 36, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.jpmorgan-chase-ai-btn:hover {
+.chase-travel-ai-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 22px rgba(36, 36, 36, 0.42);
 }
-.jpmorgan-chase-ai-btn:active {
+.chase-travel-ai-btn:active {
   transform: translateY(0);
 }
 
@@ -899,7 +899,7 @@ button {
   border-radius: 10px;
 }
 
-/* ---- Toolbar actions (Add Report + JpmorganChase AI) ----------------------- */
+/* ---- Toolbar actions (Add Report + Chase Travel AI) ----------------------- */
 .analytics-toolbar-actions {
   display: flex;
   align-items: center;
@@ -1380,7 +1380,7 @@ button {
   display: block;
 }
 
-/* ===========================  Ask JpmorganChase tab  ======================== */
+/* ===========================  Ask Chase Travel tab  ======================== */
 
 .ask-embed-wrapper {
   width: 100%;
@@ -2377,7 +2377,7 @@ button {
   background: var(--sl-green-dark);
 }
 
-/* =====================  JpmorganChase AI two-column pane  =================== */
+/* =====================  Chase Travel AI two-column pane  =================== */
 .sl-ai-overlay {
   position: fixed;
   inset: 0;
@@ -2787,7 +2787,7 @@ button {
   }
 }
 
-/* Ask JpmorganChase tab — the JpmorganChase AI experience as a full-height page. */
+/* Ask Chase Travel tab — the Chase Travel AI experience as a full-height page. */
 .tab-ask {
   max-width: none;
 }
@@ -2828,11 +2828,11 @@ button {
 .sl-trial-body { padding: 30px 30px 26px; }
 .sl-trial-icon {
   width: 46px; height: 46px; border-radius: 4px; display: grid; place-items: center;
-  color: #fff; background: var(--jpmorgan-chase-grad); box-shadow: 0 8px 20px rgba(17, 122, 202, 0.35);
+  color: #fff; background: var(--chase-travel-grad); box-shadow: 0 8px 20px rgba(17, 122, 202, 0.35);
 }
 .sl-trial-eyebrow {
   margin-top: 18px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  background: var(--jpmorgan-chase-grad); -webkit-background-clip: text; background-clip: text;
+  background: var(--chase-travel-grad); -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
 }
 .sl-trial-title { margin: 6px 0 8px; font-size: 24px; font-weight: 700; letter-spacing: -0.01em; color: var(--sl-ink); }
@@ -2918,8 +2918,8 @@ button {
 .plg-slot.on { border-color: var(--sl-green); box-shadow: inset 0 0 0 1px var(--sl-green); }
 
 /* ===================================================================
-   JpmorganChase brand — soft pastel background wash + blue↔green gradient
-   (reflects jpmorgan-chase.com: periwinkle → blue → mint hues, gradient accents)
+   Chase Travel brand — soft pastel background wash + blue↔green gradient
+   (reflects chase-travel.com: periwinkle → blue → mint hues, gradient accents)
    =================================================================== */
 /* Light: a subtle cyan wash behind the white cards. Dark: near-black (token). */
 :root:not([data-theme='dark']) .app-main,
@@ -2985,7 +2985,7 @@ button {
 }
 .tier-premium {
   color: #ffffff;
-  background: var(--jpmorgan-chase-grad);
+  background: var(--chase-travel-grad);
 }
 :root[data-theme='dark'] .tier-premium { color: #ffffff; }
 .tier-basic {

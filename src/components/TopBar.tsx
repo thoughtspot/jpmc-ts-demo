@@ -77,7 +77,7 @@ export const TABS: { id: TabId; label: string; icon: TabIcon }[] = [
 // is open), rather than being shown and gated on click.
 export const PREMIUM_ONLY_TABS: TabId[] = ['ask', 'spotter'];
 
-// Decorative JpmorganChase platform nav (sets product context, non-interactive).
+// Decorative Chase Travel platform nav (sets product context, non-interactive).
 // Cap the auto-generated platform links at 2 so the top bar never gets crowded,
 // no matter how many the spec lists.
 export const PLATFORM_NAV = [...CONTENT.platformNav].slice(0, 2);

@@ -14,7 +14,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 // Auth lives only in memory, so a page reload would drop it and bounce the user
 // to Login. Persist it to sessionStorage (survives reload, cleared when the tab
 // closes) so a refresh keeps the user signed in on their current tab.
-const STORAGE_KEY = 'jpmorgan-chase.auth';
+const STORAGE_KEY = 'chase-travel.auth';
 
 interface StoredAuth {
   username: string;

@@ -1,10 +1,10 @@
-// Ask JpmorganChase — the custom JpmorganChase AI experience (moved here from the
-// Analytics "JpmorganChase AI" modal). Left: the Spotter answer canvas with a
+// Ask Chase Travel — the custom Chase Travel AI experience (moved here from the
+// Analytics "Chase Travel AI" modal). Left: the Spotter answer canvas with a
 // branded empty-state landing (logo + worksheet sample questions) and its own
-// input bar hidden. Right: a "JpmorganChase AI" expert pane that tracks the
+// input bar hidden. Right: a "Chase Travel AI" expert pane that tracks the
 // question history and takes follow-ups.
 //
-// Each question is routed (via routeMessage): general JpmorganChase questions
+// Each question is routed (via routeMessage): general Chase Travel questions
 // (what/how/docs/business) are answered as text with documentation links here
 // in the pane; data/analytics questions drive the Spotter canvas via
 // HostEvent.SpotterSearch. After the 2nd question a pervasive trial modal appears.
@@ -15,10 +15,10 @@ import { Wand2, ArrowUp, PlayCircle, Sparkles, ExternalLink } from 'lucide-react
 import {
   WORKSHEET_ID,
   SPOTTER_EMBED_FLAGS,
-  JpmorganChase_SAMPLE_QUESTIONS,
-  JpmorganChase_TRIAL_QUESTIONS,
+  ChaseTravel_SAMPLE_QUESTIONS,
+  ChaseTravel_TRIAL_QUESTIONS,
   TRIAL_TRIGGER,
-  JpmorganChase_VIDEO_URL,
+  ChaseTravel_VIDEO_URL,
   HIDE_SPOTTER_INPUT_RULES,
 } from '../config';
 import { spotterCustomizations } from '../lib/thoughtspot';
@@ -26,7 +26,7 @@ import { CONTENT } from '../content';
 import { FLAGS } from '../flags';
 import { routeMessage, ChatTurn, DocLink, RouteResult } from '../lib/chatbot';
 import { useTheme } from '../context/ThemeContext';
-import JpmorganChaseLogo from '../components/JpmorganChaseLogo';
+import ChaseTravelLogo from '../components/ChaseTravelLogo';
 import TrialModal from '../components/TrialModal';
 
 const Spotter = SpotterEmbed as unknown as (props: any) => JSX.Element;
@@ -57,7 +57,7 @@ function renderText(text: string) {
   );
 }
 
-export default function AskJpmorganChase() {
+export default function AskChaseTravel() {
   const { theme } = useTheme();
   const spotterRef = useEmbedRef<typeof SpotterEmbed>();
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -92,7 +92,7 @@ export default function AskJpmorganChase() {
           executeSearch: true,
         });
       } catch (e) {
-        console.warn('[jpmorgan-chase-ai] SpotterSearch failed:', e);
+        console.warn('[chase-travel-ai] SpotterSearch failed:', e);
         setSpotterActive(false);
       }
     },
@@ -163,7 +163,7 @@ export default function AskJpmorganChase() {
           setNarrative((n) => [...n, { role: 'assistant', text: result.preamble }]);
         }
       } else {
-        // General JpmorganChase question → answered from the knowledge base; Spotter
+        // General Chase Travel question → answered from the knowledge base; Spotter
         // is NOT invoked, so no glow.
         setSpotterActive(false);
         setNarrative((n) => [...n, { role: 'assistant', text: result.text, links: result.links }]);
@@ -177,7 +177,7 @@ export default function AskJpmorganChase() {
 
   const askedCount = narrative.filter((t) => t.role === 'user').length;
   const lastUserIdx = narrative.map((t) => t.role).lastIndexOf('user');
-  const remaining = Math.max(0, JpmorganChase_TRIAL_QUESTIONS - askedCount);
+  const remaining = Math.max(0, ChaseTravel_TRIAL_QUESTIONS - askedCount);
 
   return (
     <div className="tab-ask">
@@ -187,14 +187,14 @@ export default function AskJpmorganChase() {
           <div className={`sl-ai-canvas${spotterActive ? ' is-spotter-active' : ''}`}>
             {!currentQuery && (
               <div className="sl-ai-empty">
-                <JpmorganChaseLogo className="sl-ai-empty-logo" size={58} wordmark={false} />
+                <ChaseTravelLogo className="sl-ai-empty-logo" size={58} wordmark={false} />
                 <span className="sl-ai-empty-eyebrow">
-                  <Sparkles size={14} /> Powered by JpmorganChase AI
+                  <Sparkles size={14} /> Powered by Chase Travel AI
                 </span>
                 <h2 className="sl-ai-empty-title">{CONTENT.tabs.ask}</h2>
                 <p className="sl-ai-empty-sub">{CONTENT.askEmptySub}</p>
                 <div className="sl-ai-empty-chips">
-                  {JpmorganChase_SAMPLE_QUESTIONS.map((q) => (
+                  {ChaseTravel_SAMPLE_QUESTIONS.map((q) => (
                     <button key={q} className="sl-ai-empty-chip" onClick={() => send(q)}>
                       {q}
                     </button>
@@ -215,19 +215,19 @@ export default function AskJpmorganChase() {
           </div>
         </div>
 
-        {/* ---- Right: JpmorganChase AI expert pane ---- */}
+        {/* ---- Right: Chase Travel AI expert pane ---- */}
         <div className="sl-ai-pane">
           <div className="sl-ai-pane-header">
             <div className="sl-ai-pane-brand">
               <Wand2 size={18} />
-              <span>JpmorganChase AI</span>
+              <span>Chase Travel AI</span>
             </div>
           </div>
 
           <div className="sl-ai-pane-body" ref={bodyRef}>
             <a
               className="sl-ai-watch-video"
-              href={JpmorganChase_VIDEO_URL}
+              href={ChaseTravel_VIDEO_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -290,10 +290,10 @@ export default function AskJpmorganChase() {
           </div>
 
           <div className="sl-ai-pane-footer">
-            <a href="https://www.jpmorgan-chase.com/legal/privacy-notice" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.chase-travel.com/legal/privacy-notice" target="_blank" rel="noopener noreferrer">
               Privacy Policy
             </a>
-            <span>Powered by JpmorganChase</span>
+            <span>Powered by ChaseTravel</span>
           </div>
         </div>
       </div>

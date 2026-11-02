@@ -11,7 +11,7 @@ import MyAnalytics from './tabs/MyAnalytics';
 import { FLAGS } from './flags';
 import Analytics from './tabs/Analytics';
 import Capacity from './tabs/Capacity';
-import AskJpmorganChase from './tabs/AskJpmorganChase';
+import AskChaseTravel from './tabs/AskChaseTravel';
 import SpotterTab from './tabs/Spotter';
 import {
   WORKSHEET_ID,
@@ -21,7 +21,7 @@ import {
 } from './config';
 
 // Persist the active tab so a reload restores it instead of resetting to default.
-const TAB_KEY = 'jpmorgan-chase.tab';
+const TAB_KEY = 'chase-travel.tab';
 
 export default function App() {
   const { isAuthenticated } = useAuth();
@@ -68,7 +68,7 @@ export default function App() {
         {tab === 'my-analytics' && <MyAnalytics />}
         {tab === 'analytics' && <Analytics />}
         {tab === 'capacity' && <Capacity />}
-        {tab === 'ask' && tier === 'premium' && <AskJpmorganChase />}
+        {tab === 'ask' && tier === 'premium' && <AskChaseTravel />}
         {tab === 'spotter' && tier === 'premium' && <SpotterTab />}
       </main>
       <ChatBot

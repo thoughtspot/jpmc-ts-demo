@@ -62,7 +62,7 @@ export default function Capacity() {
   // ThoughtSpot fires this when the user picks "Request Bid" on a row.
   function onCustomAction(payload: any) {
     const data = payload?.data ?? payload;
-    console.debug('[jpmorgan-chase] Request Bid payload', payload);
+    console.debug('[chase-travel] Request Bid payload', payload);
     if (data?.id !== REQUEST_BID_ACTION_ID) return;
     setCtx(buildSignalContext(data));
   }

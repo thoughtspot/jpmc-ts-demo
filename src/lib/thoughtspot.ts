@@ -5,7 +5,7 @@ import {
   CADENCE_COLUMN_CANDIDATES,
   CADENCE_DETAIL_COLUMNS,
   ORG_COLUMN_CANDIDATES,
-  JpmorganChase_ORG_ID,
+  ChaseTravel_ORG_ID,
   TS_CSS_VARIABLES,
   TS_ICON_SPRITE_URL,
   TS_STRINGS,
@@ -17,7 +17,7 @@ import {
   CADENCE_NAME_COLUMN,
   HIDE_FILTER_PILL_RULES,
   TS_RULES_DARK,
-  JpmorganChase_EMBED_RULES,
+  ChaseTravel_EMBED_RULES,
   SPOTTER_ANSWER_ACTION_RULES,
   SPOTTER_LANDING_FLAT_RULES,
   tsVarsFor,
@@ -79,7 +79,7 @@ async function restHeaders(): Promise<Record<string, string>> {
 }
 
 /**
- * Initialise the ThoughtSpot Visual Embed SDK with JpmorganChase styling.
+ * Initialise the ThoughtSpot Visual Embed SDK with Chase Travel styling.
  * Styling (CSS variables + spotter icon) comes straight from jpmorgan-chase_fin.json
  * so every embed across the three tabs shares the exact same theme.
  */
@@ -102,7 +102,7 @@ export function initThoughtSpot(username: string, password: string) {
         customCSS: { variables: TS_CSS_VARIABLES },
       },
       iconSpriteUrl: TS_ICON_SPRITE_URL,
-      // Global text overrides — replaces "Spotter" -> "JpmorganChase AI" (and the
+      // Global text overrides — replaces "Spotter" -> "Chase Travel AI" (and the
       // landing-page string) as substrings across every embed. Set in init()
       // so it applies to Liveboard, Search/Answer, Spotter and the chatbot.
       content: {
@@ -121,7 +121,7 @@ export function tsCustomizations(
 ) {
   // Merge the dark-only surface rules with any per-embed extra rules.
   const rules = {
-    ...JpmorganChase_EMBED_RULES,
+    ...ChaseTravel_EMBED_RULES,
     ...(theme === 'dark' ? TS_RULES_DARK : {}),
     ...(extraRules ?? {}),
   };
@@ -146,7 +146,7 @@ export function tsCustomizations(
  * Customizations for the Spotter embeds (Spotter tab, Ask <brand>, and the
  * Spotter panel on Analytics).
  *
- * Same theme as every other embed, minus JpmorganChase_EMBED_RULES: that rule
+ * Same theme as every other embed, minus ChaseTravel_EMBED_RULES: that rule
  * paints `[class*="spotter"][class*="button"]` with the brand fill to brand the
  * Spotter *launch* pill in Liveboard/Answer embeds — which never renders inside
  * the Spotter embed itself. ThoughtSpot's own CSS modules name the answer
@@ -179,11 +179,11 @@ export function spotterCustomizations(
 }
 
 /**
- * Customizations for the Analytics liveboard — the active-theme JpmorganChase
+ * Customizations for the Analytics liveboard — the active-theme Chase Travel
  * styling, the rules that hide ThoughtSpot's native filter pills/bar, and a
  * direct override for the on-viz action buttons' hover background.
  *
- * The viz action buttons (bell / "JpmorganChase AI" / …) read their hover bg from
+ * The viz action buttons (bell / "Chase Travel AI" / …) read their hover bg from
  * `--ts-var-liveboard-header-action-button-hover-color`, but overriding that
  * variable had no effect (the button falls back to a near-white translucent
  * grey). So we target the exact ThoughtSpot rule seen in DevTools —
@@ -691,14 +691,14 @@ export async function fetchCadences(
   }
 
   // Resolve the org-scoping filter: find the first org column that returns data
-  // when filtered to JpmorganChase_ORG_ID. If none work, fall back to the unfiltered
+  // when filtered to ChaseTravel_ORG_ID. If none work, fall back to the unfiltered
   // list rather than showing nothing.
   let orgClause = '';
   let orgColumn = '';
   for (const orgCol of ORG_COLUMN_CANDIDATES) {
-    const r = await searchData(`[${cadenceCol}] [${orgCol}] = '${JpmorganChase_ORG_ID}'`);
+    const r = await searchData(`[${cadenceCol}] [${orgCol}] = '${ChaseTravel_ORG_ID}'`);
     if (r && r.data_rows?.length) {
-      orgClause = ` [${orgCol}] = '${JpmorganChase_ORG_ID}'`;
+      orgClause = ` [${orgCol}] = '${ChaseTravel_ORG_ID}'`;
       orgColumn = orgCol;
       // Re-scope the process names to this org.
       const scoped = new Set<string>();
@@ -712,7 +712,7 @@ export async function fetchCadences(
   }
   if (!orgClause) {
     console.warn(
-      `[jpmorgan-chase] No org column matched ${JpmorganChase_ORG_ID} (tried: ${ORG_COLUMN_CANDIDATES.join(
+      `[chase-travel] No org column matched ${ChaseTravel_ORG_ID} (tried: ${ORG_COLUMN_CANDIDATES.join(
         ', ',
       )}). Showing the unfiltered process list.`,
     );

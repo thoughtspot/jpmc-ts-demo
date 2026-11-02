@@ -11,7 +11,7 @@ import { FLAGS } from '../flags';
 import { TABS, PLATFORM_NAV, PREMIUM_ONLY_TABS, TabId } from './TopBar';
 
 // Persist the collapsed state so it survives reloads.
-const COLLAPSED_KEY = 'jpmorgan-chase.sidenav-collapsed';
+const COLLAPSED_KEY = 'chase-travel.sidenav-collapsed';
 
 interface Props {
   active: TabId;

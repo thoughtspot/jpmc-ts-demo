@@ -1,4 +1,4 @@
-# JPMorgan Chase - ThoughtSpot demo portal
+# Chase Travel - ThoughtSpot demo portal
 
 Built by DemoPrep. The hosted copy is at:
 

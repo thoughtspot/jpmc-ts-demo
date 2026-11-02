@@ -213,7 +213,7 @@ export default function Analytics() {
                   <FileSearch size={16} /> Report Builder
                 </button>
                 <button onClick={() => { setPanel('spotter'); setMenuOpen(false); }}>
-                  <Wand2 size={16} /> JpmorganChase AI
+                  <Wand2 size={16} /> Chase Travel AI
                 </button>
               </div>
             )}
@@ -243,7 +243,7 @@ export default function Analytics() {
           <div className="analytics-report-col">
             <div className="report-head">
               <span className="report-title">
-                {panel === 'spotter' ? 'JpmorganChase AI' : 'Report Builder'}
+                {panel === 'spotter' ? 'Chase Travel AI' : 'Report Builder'}
               </span>
               <div className="report-head-actions">
                 <button className="report-pin-btn" onClick={() => setPinOpen(true)}>

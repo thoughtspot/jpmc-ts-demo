@@ -128,7 +128,7 @@ export default function ChatBot({ worksheetId, greeting }: ChatBotProps) {
       <button
         className="chat-fab"
         onClick={() => setOpen(true)}
-        aria-label="Open JpmorganChase AI"
+        aria-label="Open Chase Travel AI"
       >
         <Wand2 size={22} strokeWidth={2.2} />
       </button>
@@ -140,7 +140,7 @@ export default function ChatBot({ worksheetId, greeting }: ChatBotProps) {
       <div className="chat-header">
         <div className="chat-title">
           <Wand2 size={18} />
-          <span>JpmorganChase AI</span>
+          <span>Chase Travel AI</span>
         </div>
         <button className="chat-close" onClick={() => setOpen(false)} aria-label="Close">
           <X size={18} />
@@ -167,7 +167,7 @@ export default function ChatBot({ worksheetId, greeting }: ChatBotProps) {
         <textarea
           className="chat-input"
           rows={1}
-          placeholder="Ask JpmorganChase AI…"
+          placeholder="Ask Chase Travel AI…"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={onKeyDown}

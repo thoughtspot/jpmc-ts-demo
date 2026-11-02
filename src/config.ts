@@ -1,6 +1,6 @@
 import { CONTENT } from './content';
 // ---------------------------------------------------------------------------
-// Central configuration for the JpmorganChase Analytics mockup.
+// Central configuration for the Chase Travel Analytics mockup.
 // IDs + ThoughtSpot styling are sourced from jpmorgan-chase_fin.json so that every
 // embedded ThoughtSpot component shares the exact same look & feel.
 // ---------------------------------------------------------------------------
@@ -65,13 +65,13 @@ export const CADENCE_DETAIL_COLUMNS: Record<
 };
 
 /**
- * Worksheet / model used everywhere Spotter runs — the "JpmorganChase AI" Spotter
- * modal (Analytics tab), the Ask JpmorganChase Spotter embed, and the host chatbot.
+ * Worksheet / model used everywhere Spotter runs — the "Chase Travel AI" Spotter
+ * modal (Analytics tab), the Ask Chase Travel Spotter embed, and the host chatbot.
  */
 export const WORKSHEET_ID = import.meta.env.NEXT_PUBLIC_TS_WORKSHEET_ID ?? '';
 
-/** Carriers list is not org-scoped for JpmorganChase. */
-export const JpmorganChase_ORG_ID = '';
+/** Carriers list is not org-scoped for Chase Travel. */
+export const ChaseTravel_ORG_ID = '';
 export const ORG_COLUMN_CANDIDATES: string[] = [];
 
 /** Analytics-tab filters — Region + Freight corridor (multiselect), both empty
@@ -210,7 +210,7 @@ export type ThemeName = 'light' | 'dark';
 
 /**
  * Dark counterpart to TS_CSS_VARIABLES — a deep-evergreen dark theme that keeps
- * JpmorganChase's green/coral accents. Passed per-embed for the active theme so the
+ * Chase Travel's green/coral accents. Passed per-embed for the active theme so the
  * embedded Liveboard / Search / Spotter track the host app's light/dark toggle.
  *   CSS variables: https://developers.thoughtspot.com/docs/css-variables-reference
  */
@@ -357,7 +357,7 @@ export function tsVarsFor(theme: ThemeName): Record<string, string> {
 
 /**
  * Dark-only color overrides for surfaces with no dedicated CSS variable (answer
- * cards, floating chrome), plus the KPI headline in the JpmorganChase green. Applied
+ * cards, floating chrome), plus the KPI headline in the Chase Travel green. Applied
  * via rules_UNSTABLE only in dark mode.
  *   Docs: https://developers.thoughtspot.com/docs/css-rules
  */
@@ -598,7 +598,7 @@ export const TS_RULES_DARK: Record<string, Record<string, string>> = {
 };
 
 /**
- * Welcome message for the host-owned JpmorganChase AI chatbot
+ * Welcome message for the host-owned Chase Travel AI chatbot
  * (from jpmorgan-chase_fin.json > appConfig.chatbot.welcomeMessage, lightly adapted).
  */
 export const CHATBOT_WELCOME = CONTENT.chatbot.welcome;
@@ -612,7 +612,7 @@ export const TS_ICON_SPRITE_URL =
   'https://cdn.jsdelivr.net/gh/thoughtspot/tse-demo-builders-pre-built/icons/spotter/generic-02.svg';
 
 /**
- * String customizations — replace "Spotter" with "JpmorganChase AI" everywhere,
+ * String customizations — replace "Spotter" with "Chase Travel AI" everywhere,
  * plus the landing-page description override (from
  * jpmorgan-chase_fin.json > stylingConfig.embeddedContent.strings / stringIDs).
  */
@@ -648,12 +648,12 @@ export const SPOTTER_EMBED_FLAGS = {
 
 /**
  * Extra customCSS rules injected into every embed so ThoughtSpot's own buttons
- * carry the JpmorganChase blue↔green gradient and the KPI (headline) tiles pop with the
+ * carry the Chase Travel blue↔green gradient and the KPI (headline) tiles pop with the
  * brand gradient. ThoughtSpot class names are version-dependent — these use
  * broad candidate selectors; if a surface isn't picked up, Inspect the iframe
  * and tighten the selector to the real class name.
  */
-export const JpmorganChase_EMBED_RULES: Record<string, Record<string, string>> = {
+export const ChaseTravel_EMBED_RULES: Record<string, Record<string, string>> = {
   // No gradient on KPI tiles / viz titles by default — embeds use ThoughtSpot's
   // native styling, which already follows the theme via the CSS variables above.
   // Only brand the AI / Spotter header button (an off-brand green pill on some
@@ -675,19 +675,19 @@ export const JpmorganChase_EMBED_RULES: Record<string, Record<string, string>> =
 export const TS_FONT_URL =
   "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap";
 
-/** "Watch video" link shown in the JpmorganChase AI pane. */
-export const JpmorganChase_VIDEO_URL = 'https://www.jpmorgan-chase.com/platform/conversations';
+/** "Watch video" link shown in the Chase Travel AI pane. */
+export const ChaseTravel_VIDEO_URL = 'https://www.chase-travel.com/platform/conversations';
 
-/** Sample questions shown on the custom JpmorganChase AI landing pane. */
-export const JpmorganChase_SAMPLE_QUESTIONS = [...CONTENT.sampleQuestions];
+/** Sample questions shown on the custom Chase Travel AI landing pane. */
+export const ChaseTravel_SAMPLE_QUESTIONS = [...CONTENT.sampleQuestions];
 
-/** Trial / upgrade prompt shown in the JpmorganChase AI pane after the 2nd query. */
-export const JpmorganChase_TRIAL_QUESTIONS = 20;
+/** Trial / upgrade prompt shown in the Chase Travel AI pane after the 2nd query. */
+export const ChaseTravel_TRIAL_QUESTIONS = 20;
 export const TRIAL_TRIGGER = CONTENT.trialQuestionTrigger;
-export const JpmorganChase_UPGRADE_URL = CONTENT.website + '/pricing';
+export const ChaseTravel_UPGRADE_URL = CONTENT.website + '/pricing';
 
 /**
- * Hide the Spotter embed's own composer / input bar on the JpmorganChase AI screen
+ * Hide the Spotter embed's own composer / input bar on the Chase Travel AI screen
  * — questions are driven from the host-side pane on the right, so the in-embed
  * "Enter your question" box (and its Quick/Deep toggle) is redundant. Injected
  * via rules_UNSTABLE. Class names are version-fragile; verify via Inspect if a
