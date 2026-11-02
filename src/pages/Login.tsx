@@ -5,8 +5,13 @@ import { Eye, EyeOff } from 'lucide-react';
 import JpmorganChaseLogo from '../components/JpmorganChaseLogo';
 import { CONTENT } from '../content';
 
+// Only emails at this domain may sign in (also enforced by /api/ts-token).
+const ALLOWED_EMAIL_DOMAIN = 'jpmchase.com';
+const USERNAME_PLACEHOLDER = `name@${ALLOWED_EMAIL_DOMAIN}`;
+const USERNAME_NOT_ALLOWED_MESSAGE = `Please sign in with your @${ALLOWED_EMAIL_DOMAIN} email address.`;
+
 export default function Login() {
-  const [username, setUsername] = useState('hadley.vaca@thoughtspot.com');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +25,10 @@ export default function Login() {
       setError('Please enter your username and password.');
       return;
     }
+    if (!username.trim().toLowerCase().endsWith(`@${ALLOWED_EMAIL_DOMAIN}`)) {
+      setError(USERNAME_NOT_ALLOWED_MESSAGE);
+      return;
+    }
     setError('');
     setIsLoading(true);
     try {
@@ -27,7 +36,7 @@ export default function Login() {
     } catch (err) {
       setError(
         err instanceof UsernameNotAllowedError
-          ? "This username isn't allowed. Please use an approved demo user."
+          ? USERNAME_NOT_ALLOWED_MESSAGE
           : 'Failed to sign in. Please check your credentials.',
       );
     } finally {
@@ -76,10 +85,10 @@ export default function Login() {
               </label>
               <input
                 id="username"
-                type="text"
+                type="email"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
+                placeholder={USERNAME_PLACEHOLDER}
                 className="login-input"
                 autoComplete="username"
                 autoFocus

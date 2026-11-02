@@ -1,38 +1,38 @@
 /* ===========================================================================
    JpmorganChase Analytics — theme approximating jpmorgan-chase.com's 2024 rebrand:
    tonal greens, warm cream surfaces, a humanist-serif display face (Fraunces,
-   in place of JpmorganChase's "Nib") + Inter for UI text (in place of "Metric").
+   in place of JpmorganChase's "Nib") + Open Sans for UI text, matching chase.com/travel.
    =========================================================================== */
 
 :root {
-  --sl-cream: #f7fafd;
-  --sl-cream-2: #e7f2fa;
+  --sl-cream: #f0f1f3;
+  --sl-cream-2: #e9ebf4;
   --sl-white: #ffffff;
-  --sl-evergreen: #117ACA;
-  --sl-evergreen-2: #3c92d4;
-  --sl-green: #117ACA;
-  --sl-green-dark: #3c92d4;
-  --sl-primary-rgb: 17, 122, 202;
-  --jpmorgan-chase-blue: #0077C8;
-  --sl-gold: #0077C8;
+  --sl-evergreen: #0F1F80;
+  --sl-evergreen-2: #2B3BA5;
+  --sl-green: #0F1F80;
+  --sl-green-dark: #2B3BA5;
+  --sl-primary-rgb: 15, 31, 128;
+  --jpmorgan-chase-blue: #0F1F80;
+  --sl-gold: #0F1F80;
   --sl-gold-ink: #ffffff;
-  --jpmorgan-chase-grad: linear-gradient(90deg, #117ACA 0%, #0077C8 100%);
-  --sl-mint: #d9eaf7;
-  --sl-mint-2: #c1ddf1;
+  --jpmorgan-chase-grad: linear-gradient(90deg, #0F1F80 0%, #0F1F80 100%);
+  --sl-mint: #e3e6f4;
+  --sl-mint-2: #c9cfea;
   --sl-coral: #c0392b;
   --sl-warn: #f5f2e6;
   --sl-warn-ink: #584517;
   --sl-ink: #242424;
   --sl-muted: #7d7e7f;
-  --sl-border: #cbd5de;
-  --sl-border-soft: #dfe7ee;
-  --font-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sl-border: #d0d3da;
+  --sl-border-soft: #e2e4e9;
+  --font-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-sans: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --topbar-h: 66px;
-  --shadow-card: 0 1px 2px rgba(36, 36, 36, 0.05), 0 8px 24px rgba(36, 36, 36, 0.07);
+  --shadow-card: 0 1px 3px rgba(15, 31, 128, 0.15);
   --shadow-lift: 0 6px 14px rgba(36, 36, 36, 0.08), 0 18px 40px rgba(36, 36, 36, 0.12);
-  --brand-navy: #117ACA;
-  --brand-accent: #0077C8;
+  --brand-navy: #0F1F80;
+  --brand-accent: #0F1F80;
 }
 
 /* ===========================  Dark theme  =============================== */
@@ -63,8 +63,8 @@
   --sl-muted: #939ea7;
   --sl-border: #0d3c60;
   --sl-border-soft: #0c2f49;
-  --font-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-sans: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --topbar-h: 66px;
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.55);
   --shadow-lift: 0 6px 14px rgba(0, 0, 0, 0.6), 0 18px 40px rgba(0, 0, 0, 0.65);
@@ -181,8 +181,64 @@ button {
   top: 0;
   z-index: 50;
 }
-.sidenav-brand { padding: 4px 8px 12px; }
-.sidenav-logo { height: 30px; }
+.sidenav {
+  transition: width 0.18s ease, padding 0.18s ease;
+}
+.sidenav-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 8px 12px;
+}
+.sidenav-collapse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  padding: 6px;
+  border-radius: 8px;
+  color: var(--sl-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.sidenav-collapse:hover { background: var(--sl-cream-2); color: var(--sl-ink); }
+/* Collapsed: icon-only rail; labels hidden, tooltips come from title attrs. */
+.sidenav.is-collapsed { width: 68px; padding: 18px 10px; }
+.sidenav.is-collapsed .sidenav-brand { flex-direction: column; justify-content: center; padding: 4px 0 12px; }
+.sidenav.is-collapsed .sidenav-tab,
+.sidenav.is-collapsed .sidenav-theme-toggle,
+.sidenav.is-collapsed .sidenav-tier,
+.sidenav.is-collapsed .sidenav-user { justify-content: center; padding-left: 0; padding-right: 0; }
+.sidenav.is-collapsed .sidenav-tab span,
+.sidenav.is-collapsed .sidenav-theme-toggle span,
+.sidenav.is-collapsed .sidenav-username,
+.sidenav.is-collapsed .sidenav-tier > svg,
+.sidenav.is-collapsed .sidenav-user > svg { display: none; }
+.sidenav.is-collapsed .tier-pill { padding: 5px; }
+.sidenav.is-collapsed .tier-pill { font-size: 0; gap: 0; }
+.sidenav.is-collapsed .topbar-menu { left: 0; right: auto; }
+.sidenav-logo { height: 56px; width: auto; object-fit: contain; }
+/* Collapsed rail icon: the octagon mark cropped out of the Travel logo image. */
+.sidenav-logo-icon {
+  display: block;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  background: url('/jpmc-travel.jpeg') no-repeat;
+  background-size: 143px auto;
+  background-position: -9px -24px;
+}
+/* Dark theme: the logo is a white-backed JPEG, so invert it (white -> black,
+   dark wordmark -> light), rotate hue back to blue, and screen-blend the black
+   away so it sits on the dark surface without a white tile. */
+:root[data-theme='dark'] .sidenav-logo,
+:root[data-theme='dark'] .sidenav-logo-icon,
+:root[data-theme='dark'] .topbar-logo {
+  filter: invert(1) hue-rotate(180deg);
+  mix-blend-mode: screen;
+}
 .sidenav-platform {
   display: flex;
   flex-wrap: wrap;
@@ -197,7 +253,7 @@ button {
   gap: 11px;
   width: 100%;
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: 0;
   font: inherit;
   font-size: 14px;
   font-weight: 500;
@@ -211,9 +267,10 @@ button {
 .sidenav-tab svg { flex: none; }
 .sidenav-tab:hover { background: var(--sl-cream-2); color: var(--sl-ink); }
 .sidenav-tab.is-active {
-  background: var(--sl-mint);
-  color: var(--sl-evergreen);
+  background: var(--sl-cream-2);
+  color: var(--sl-ink);
   font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--sl-evergreen);
 }
 .sidenav-footer {
   margin-top: auto;
@@ -280,6 +337,7 @@ button {
     gap: 8px;
   }
   .sidenav-brand { padding: 4px 8px; }
+  .sidenav-collapse { display: none; }
   .sidenav-platform { display: none; }
   .sidenav-tabs { flex-direction: row; flex-wrap: wrap; flex: 1; }
   .sidenav-footer {
@@ -353,7 +411,7 @@ button {
   gap: 6px;
   background: var(--sl-cream);
   padding: 5px;
-  border-radius: 12px;
+  border-radius: 4px;
 }
 .topbar-tab {
   display: inline-flex;
@@ -507,6 +565,17 @@ button {
 .tab-analytics {
   max-width: none;
   padding-top: 10px;
+  padding-bottom: 16px;
+}
+/* Fill the viewport below the toolbar so a short liveboard doesn't leave an
+   empty band at the bottom; the wrapper matches the liveboard's own background. */
+.tab-analytics .analytics-board-col .liveboard-wrapper,
+.tab-analytics .analytics-board-col .liveboard-wrapper > div,
+.tab-analytics .analytics-board-col .liveboard-wrapper iframe {
+  min-height: calc(100vh - 150px);
+}
+:root:not([data-theme='dark']) .tab-analytics .analytics-board-col .liveboard-wrapper {
+  background: #dbe6f6;
 }
 .tab-analytics .analytics-toolbar {
   margin-bottom: 8px;
@@ -584,7 +653,7 @@ button {
   width: 320px;
   background: var(--sl-white);
   border: 1px solid var(--sl-border);
-  border-radius: 14px;
+  border-radius: 4px;
   box-shadow: var(--shadow-lift);
   padding: 12px;
 }
@@ -788,7 +857,7 @@ button {
   font-weight: 700;
   letter-spacing: 0.08em;
   padding: 13px 20px;
-  border-radius: 12px;
+  border-radius: 4px;
   box-shadow: 0 4px 14px rgba(36, 36, 36, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
@@ -808,7 +877,7 @@ button {
     radial-gradient(760px 320px at 110% -8%, rgba(var(--sl-primary-rgb), 0.08), transparent 58%),
     linear-gradient(180deg, var(--sl-white), var(--sl-cream));
   border: 1px solid var(--sl-border-soft);
-  border-radius: 22px;
+  border-radius: 4px;
   box-shadow: 0 1px 2px rgba(36, 36, 36, 0.05), 0 26px 70px rgba(36, 36, 36, 0.16);
   padding: 12px;
   min-height: 70vh;
@@ -850,7 +919,7 @@ button {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  border-radius: 12px;
+  border-radius: 4px;
   box-shadow: 0 1px 2px rgba(36, 36, 36, 0.05);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -866,7 +935,7 @@ button {
   min-width: 210px;
   background: var(--sl-white);
   border: 1px solid var(--sl-border);
-  border-radius: 12px;
+  border-radius: 4px;
   box-shadow: var(--shadow-lift);
   padding: 6px;
 }
@@ -916,7 +985,7 @@ button {
   height: calc(100vh - var(--topbar-h) - 150px);
   background: var(--sl-white);
   border: 1px solid var(--sl-border-soft);
-  border-radius: 16px;
+  border-radius: 4px;
   box-shadow: var(--shadow-card);
   overflow: hidden;
 }
@@ -994,6 +1063,12 @@ button {
 }
 .ma-selected .my-analytics-toolbar {
   flex-shrink: 0;
+}
+/* Sidebar layout has no top bar to subtract, so use the full viewport and trim
+   the page's bottom padding so the liveboard reaches the bottom edge. */
+.app-shell.is-sidenav .ma-selected {
+  height: 100vh;
+  padding-bottom: 16px;
 }
 .ma-selected .liveboard-wrapper {
   flex: 1;
@@ -1080,7 +1155,7 @@ button {
   text-align: left;
   background: var(--sl-white);
   border: 1px solid var(--sl-border-soft);
-  border-radius: 16px;
+  border-radius: 4px;
   padding: 22px;
   box-shadow: var(--shadow-card);
   transition: transform 0.16s ease, box-shadow 0.16s ease,
@@ -1098,7 +1173,7 @@ button {
 .ma-card-icon {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: 4px;
   background: var(--sl-mint);
   color: var(--sl-green-dark);
   display: flex;
@@ -1196,7 +1271,7 @@ button {
 .cadence-row {
   background: var(--sl-white);
   border: 1px solid var(--sl-border-soft);
-  border-radius: 14px;
+  border-radius: 4px;
   box-shadow: var(--shadow-card);
   overflow: hidden;
   transition: border-color 0.16s ease;
@@ -1313,7 +1388,7 @@ button {
   min-height: 560px;
   background: var(--sl-white);
   border: 1px solid var(--sl-border-soft);
-  border-radius: 16px;
+  border-radius: 4px;
   box-shadow: var(--shadow-card);
   overflow: hidden;
   padding: 6px;
@@ -1349,7 +1424,7 @@ button {
   width: min(1040px, 96vw);
   height: min(82vh, 820px);
   background: var(--sl-white);
-  border-radius: 18px;
+  border-radius: 4px;
   box-shadow: var(--shadow-lift);
   display: flex;
   flex-direction: column;
@@ -1418,7 +1493,7 @@ button {
   min-height: 560px;
   background: var(--sl-white);
   border: 1px solid var(--sl-border-soft);
-  border-radius: 16px;
+  border-radius: 4px;
   box-shadow: var(--shadow-card);
   overflow: hidden;
   padding: 6px;
@@ -1449,7 +1524,7 @@ button {
   width: min(560px, 96vw);
   max-height: 90vh;
   background: var(--sl-white);
-  border-radius: 18px;
+  border-radius: 4px;
   box-shadow: var(--shadow-lift);
   display: flex;
   flex-direction: column;
@@ -1507,7 +1582,7 @@ button {
   padding: 14px 16px;
   background: var(--sl-mint);
   border: 1px solid var(--sl-mint-2);
-  border-radius: 12px;
+  border-radius: 4px;
   margin-bottom: 14px;
 }
 .winback-ctx-item {
@@ -1568,7 +1643,7 @@ button {
   gap: 12px;
   padding: 10px 12px;
   border: 1px solid var(--sl-border-soft);
-  border-radius: 12px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
@@ -1757,7 +1832,7 @@ button {
   height: min(760px, calc(100vh - 32px));
   background: var(--c-surface);
   border: 1px solid var(--c-border);
-  border-radius: 14px;
+  border-radius: 4px;
   box-shadow: var(--shadow-lift);
   display: flex;
   flex-direction: column;
@@ -1825,7 +1900,7 @@ button {
 .chat-bubble {
   max-width: 88%;
   padding: 11px 14px;
-  border-radius: 14px;
+  border-radius: 4px;
   font-size: 14px;
   line-height: 1.55;
   box-shadow: 0 1px 2px rgba(36, 36, 36, 0.06), 0 6px 18px rgba(36, 36, 36, 0.06);
@@ -1860,7 +1935,7 @@ button {
   width: 100%;
   height: min(620px, 70vh);
   border: 1px solid var(--c-border);
-  border-radius: 12px;
+  border-radius: 4px;
   overflow: hidden;
   background: var(--c-surface);
 }
@@ -2037,7 +2112,7 @@ button {
   max-width: 400px;
   background: var(--sl-white);
   border: 1px solid var(--sl-border);
-  border-radius: 18px;
+  border-radius: 4px;
   padding: 38px 34px;
   box-shadow: var(--shadow-card);
 }
@@ -2197,7 +2272,7 @@ button {
   max-width: 440px;
   background: var(--sl-white);
   border: 1px solid var(--sl-border);
-  border-radius: 16px;
+  border-radius: 4px;
   box-shadow: var(--shadow-lift);
   overflow: hidden;
 }
@@ -2320,7 +2395,7 @@ button {
   height: calc(100vh - 48px);
   background: var(--sl-white);
   border: 1px solid var(--sl-border);
-  border-radius: 18px;
+  border-radius: 4px;
   overflow: hidden;
   box-shadow: var(--shadow-lift);
 }
@@ -2346,7 +2421,7 @@ button {
   z-index: 6;
   pointer-events: none;
   border: 2px solid var(--sl-green);
-  border-radius: 12px;
+  border-radius: 4px;
   box-shadow: 0 0 24px rgba(var(--sl-primary-rgb), 0.5), inset 0 0 24px rgba(var(--sl-primary-rgb), 0.3);
   animation: sl-spotter-glow 1.4s ease-in-out infinite;
 }
@@ -2398,7 +2473,7 @@ button {
 .sl-ai-empty-logo {
   margin-bottom: 4px;
   filter: drop-shadow(0 8px 20px rgba(var(--sl-primary-rgb), 0.35));
-  border-radius: 20px;
+  border-radius: 4px;
 }
 .sl-ai-empty-eyebrow {
   display: inline-flex;
@@ -2585,7 +2660,7 @@ button {
 }
 .sl-ai-query-card {
   border: 1px solid var(--sl-border);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 12px 13px;
   background: var(--sl-cream);
   display: flex;
@@ -2620,7 +2695,7 @@ button {
   align-items: flex-start;
   gap: 8px;
   padding: 12px 13px;
-  border-radius: 12px;
+  border-radius: 4px;
   border: 1px solid #f2b8b0;
   background: #fdeeec;
   color: #b23b2c;
@@ -2722,7 +2797,7 @@ button {
   min-height: 520px;
   background: var(--sl-white);
   border: 1px solid var(--sl-border);
-  border-radius: 18px;
+  border-radius: 4px;
   overflow: hidden;
   box-shadow: var(--shadow-card);
 }
@@ -2739,7 +2814,7 @@ button {
 .sl-trial-modal {
   position: relative; width: 100%; max-width: 440px;
   background: var(--sl-white); color: var(--sl-ink);
-  border: 1px solid var(--sl-border); border-radius: 20px;
+  border: 1px solid var(--sl-border); border-radius: 4px;
   box-shadow: var(--shadow-lift); overflow: hidden;
   animation: sl-trial-pop 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
 }
@@ -2752,7 +2827,7 @@ button {
 .sl-trial-close:hover { background: var(--sl-mint); color: var(--sl-ink); }
 .sl-trial-body { padding: 30px 30px 26px; }
 .sl-trial-icon {
-  width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center;
+  width: 46px; height: 46px; border-radius: 4px; display: grid; place-items: center;
   color: #fff; background: var(--jpmorgan-chase-grad); box-shadow: 0 8px 20px rgba(17, 122, 202, 0.35);
 }
 .sl-trial-eyebrow {
@@ -2768,7 +2843,7 @@ button {
 .sl-trial-check { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; color: var(--sl-green); background: var(--sl-mint); }
 .sl-trial-cta {
   display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
-  padding: 13px; border: 0; border-radius: 12px; cursor: pointer; text-decoration: none;
+  padding: 13px; border: 0; border-radius: 4px; cursor: pointer; text-decoration: none;
   font-size: 15px; font-weight: 700; color: #fff; background: var(--sl-green);
   box-shadow: 0 8px 20px rgba(17, 122, 202, 0.35); transition: filter 0.15s ease;
 }
@@ -2789,7 +2864,7 @@ button {
 }
 .plg-back:hover { color: var(--sl-ink); }
 .plg-offer {
-  background: var(--sl-mint); border: 1px solid var(--sl-border); border-radius: 14px;
+  background: var(--sl-mint); border: 1px solid var(--sl-border); border-radius: 4px;
   padding: 15px 16px; margin-bottom: 16px;
 }
 .plg-offer-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -2798,7 +2873,7 @@ button {
 .plg-offer-sub { margin: 5px 0 0; font-size: 12px; color: var(--sl-muted); }
 .plg-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
 .plg-btn {
-  border: 0; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 12px;
+  border: 0; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 4px;
   padding: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   transition: filter 0.15s ease;
 }
@@ -2875,7 +2950,7 @@ button {
   color: var(--sl-muted);
   background: var(--sl-mint);
   border: 1px solid var(--sl-border);
-  border-radius: 12px;
+  border-radius: 4px;
 }
 .login-demo-note strong { color: var(--sl-ink); }
 .login-demo-note code {
@@ -2998,7 +3073,7 @@ button {
 .home-actions { margin-top: 26px; }
 .home-cta {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 22px; border: 0; border-radius: 12px; cursor: pointer;
+  padding: 12px 22px; border: 0; border-radius: 4px; cursor: pointer;
   font: inherit; font-size: 15px; font-weight: 700; color: #fff;
   background: var(--sl-green);
   box-shadow: 0 8px 20px rgba(var(--sl-primary-rgb), 0.35);
@@ -3016,7 +3091,7 @@ button {
 .home-brand { display: grid; place-items: center; }
 .home-brand-card {
   width: 100%; max-width: 420px; aspect-ratio: 4 / 3;
-  border-radius: 24px;
+  border-radius: 4px;
   background: linear-gradient(150deg, var(--sl-green), var(--sl-green-dark));
   box-shadow: var(--shadow-lift);
   display: grid; place-items: center; position: relative; overflow: hidden;

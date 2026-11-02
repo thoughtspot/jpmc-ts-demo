@@ -2,6 +2,7 @@
 import {
   describeError,
   fetchThoughtSpotToken,
+  isAllowedUsername,
   parseUsername,
   UsernameRejectedError,
 } from '../server/tokenService.js';
@@ -20,6 +21,11 @@ export async function POST(request: Request): Promise<Response> {
   if (!username) {
     console.warn('[ts-token] rejected: missing or invalid username');
     return new Response('A valid username is required', { status: 400, headers: NO_STORE });
+  }
+
+  if (!isAllowedUsername(username)) {
+    console.warn('[ts-token] rejected: username domain not allowed');
+    return new Response('Username not allowed', { status: 403, headers: NO_STORE });
   }
 
   try {

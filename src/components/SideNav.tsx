@@ -3,14 +3,16 @@
 // theme toggle and user menu as the top bar; only the layout differs, so both
 // stay in sync as tabs/features change. Match a customer's left-nav UI with
 // this, then hand-tune spacing/labels as needed.
-import { ChevronDown, LogOut, Sun, Moon, Crown, Check } from 'lucide-react';
+import { ChevronDown, LogOut, Sun, Moon, Crown, Check, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useTier } from '../context/TierContext';
-import JpmorganChaseLogo from './JpmorganChaseLogo';
 import { FLAGS } from '../flags';
 import { TABS, PLATFORM_NAV, PREMIUM_ONLY_TABS, TabId } from './TopBar';
+
+// Persist the collapsed state so it survives reloads.
+const COLLAPSED_KEY = 'jpmorgan-chase.sidenav-collapsed';
 
 interface Props {
   active: TabId;
@@ -23,6 +25,13 @@ export default function SideNav({ active, onChange }: Props) {
   const { tier, setTier } = useTier();
   const [menuOpen, setMenuOpen] = useState(false);
   const [tierOpen, setTierOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem(COLLAPSED_KEY) === '1';
+    } catch {
+      return false;
+    }
+  });
   const initials = (username || 'U').slice(0, 2).toUpperCase();
   const tierRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
@@ -39,13 +48,37 @@ export default function SideNav({ active, onChange }: Props) {
     return () => document.removeEventListener('mousedown', onDown);
   }, [menuOpen, tierOpen]);
 
+  const toggleCollapsed = () => {
+    setCollapsed((c) => {
+      try {
+        localStorage.setItem(COLLAPSED_KEY, c ? '0' : '1');
+      } catch {
+        /* storage unavailable */
+      }
+      return !c;
+    });
+  };
+
   return (
-    <aside className="sidenav">
+    <aside className={`sidenav${collapsed ? ' is-collapsed' : ''}`}>
       <div className="sidenav-brand">
-        <JpmorganChaseLogo className="sidenav-logo" />
+        {collapsed ? (
+          <span className="sidenav-logo-icon" role="img" aria-label="JPMC Travel" />
+        ) : (
+          <img className="sidenav-logo" src="/jpmc-travel.jpeg" alt="JPMC Travel" />
+        )}
+        <button
+          className="sidenav-collapse"
+          onClick={toggleCollapsed}
+          title={collapsed ? 'Expand navigation' : 'Collapse navigation'}
+          aria-label={collapsed ? 'Expand navigation' : 'Collapse navigation'}
+          aria-expanded={!collapsed}
+        >
+          {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+        </button>
       </div>
 
-      {PLATFORM_NAV.length > 0 && (
+      {PLATFORM_NAV.length > 0 && !collapsed && (
         <nav className="sidenav-platform">
           {PLATFORM_NAV.map((item) => (
             <span key={item} className="sidenav-platform-link">
@@ -63,6 +96,8 @@ export default function SideNav({ active, onChange }: Props) {
               key={tab.id}
               className={`sidenav-tab ${active === tab.id ? 'is-active' : ''}`}
               onClick={() => onChange(tab.id)}
+              title={collapsed ? tab.label : undefined}
+              aria-label={tab.label}
             >
               <Icon size={18} strokeWidth={2} />
               <span>{tab.label}</span>

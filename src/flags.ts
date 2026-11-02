@@ -4,5 +4,5 @@ export const FLAGS = {
   tiers: true,
   pinning: false,
   home: false,
-  navLayout: 'top',
+  navLayout: 'sidebar',
 } as const;

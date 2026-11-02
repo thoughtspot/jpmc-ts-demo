@@ -28,7 +28,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useTier } from '../context/TierContext';
-import JpmorganChaseLogo from './JpmorganChaseLogo';
 import { CONTENT } from '../content';
 import { FLAGS } from '../flags';
 
@@ -116,7 +115,7 @@ export default function TopBar({ active, onChange }: Props) {
   return (
     <header className="topbar">
       <div className="topbar-left">
-        <JpmorganChaseLogo className="topbar-logo" />
+        <img className="topbar-logo" src="/jpmc-travel.jpeg" alt="JPMC Travel" />
         <nav className="topbar-platform-nav">
           {PLATFORM_NAV.map((item) => (
             <span key={item} className="topbar-platform-link">

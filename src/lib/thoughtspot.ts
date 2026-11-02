@@ -97,7 +97,7 @@ export function initThoughtSpot(username: string, password: string) {
     getAuthToken: fetchAuthToken,
     customizations: {
       style: {
-        // Load Inter + Fraunces into the iframe so embeds match the host fonts.
+        // Load Open Sans into the iframe so embeds match the host fonts.
         customCSSUrl: TS_FONT_URL,
         customCSS: { variables: TS_CSS_VARIABLES },
       },
@@ -128,7 +128,7 @@ export function tsCustomizations(
   const hasRules = Object.keys(rules).length > 0;
   return {
     style: {
-      // Load Inter + Fraunces into the iframe so embeds match the host fonts.
+      // Load Open Sans into the iframe so embeds match the host fonts.
       customCSSUrl: TS_FONT_URL,
       customCSS: {
         variables: tsVarsFor(theme),
@@ -229,7 +229,7 @@ export function liveboardCustomizations(theme: ThemeName) {
   // ThoughtSpot's internal `--font-family` var (optimo-plain…), which overrides
   // the chart's own `#chart { font-family }` and ignores --ts-var-root-font-family.
   // Override `--font-family` and force the chart label elements to the app font.
-  const APP_FONT = "'Inter', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif";
+  const APP_FONT = "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif";
   const chartFontRules: Record<string, Record<string, string>> = {
     ':root': { '--font-family': `${APP_FONT} !important` },
     [[
