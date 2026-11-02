@@ -3,10 +3,9 @@
 // theme toggle and user menu as the top bar; only the layout differs, so both
 // stay in sync as tabs/features change. Match a customer's left-nav UI with
 // this, then hand-tune spacing/labels as needed.
-import { ChevronDown, LogOut, Sun, Moon, Crown, Check, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { ChevronDown, LogOut, Crown, Check, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
 import { useTier } from '../context/TierContext';
 import { FLAGS } from '../flags';
 import { TABS, PLATFORM_NAV, PREMIUM_ONLY_TABS, TabId } from './TopBar';
@@ -21,7 +20,6 @@ interface Props {
 
 export default function SideNav({ active, onChange }: Props) {
   const { username, logout } = useAuth();
-  const { theme, toggle } = useTheme();
   const { tier, setTier } = useTier();
   const [menuOpen, setMenuOpen] = useState(false);
   const [tierOpen, setTierOpen] = useState(false);
@@ -107,16 +105,6 @@ export default function SideNav({ active, onChange }: Props) {
       </nav>
 
       <div className="sidenav-footer">
-        <button
-          className="sidenav-theme-toggle"
-          onClick={toggle}
-          title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-          <span>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
-        </button>
-
         {/* Tier switcher — demo control to preview Premium vs Basic gating. */}
         {FLAGS.tiers && (
           <div className="sidenav-tier" ref={tierRef} onClick={() => setTierOpen((o) => !o)}>

@@ -11,9 +11,9 @@ const ThemeContext = createContext<ThemeContextType | null>(null);
 const STORAGE_KEY = 'jpmorgan-chase-theme';
 
 function initialTheme(): ThemeName {
-  const saved = typeof localStorage !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
-  // JpmorganChase's site is dark — default to dark; honor an explicit prior choice.
-  return saved === 'light' || saved === 'dark' ? saved : 'light';
+  // The dark-mode switch is hidden; always start in light so a theme saved
+  // before the switch was removed can't leave anyone stuck in dark.
+  return 'light';
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

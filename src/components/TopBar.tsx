@@ -6,8 +6,6 @@ import {
   Bot,
   ChevronDown,
   LogOut,
-  Sun,
-  Moon,
   Crown,
   Check,
   // candidate icons the label-resolver can pick from (see iconForLabel)
@@ -26,7 +24,6 @@ import {
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
 import { useTier } from '../context/TierContext';
 import { CONTENT } from '../content';
 import { FLAGS } from '../flags';
@@ -92,7 +89,6 @@ interface Props {
 
 export default function TopBar({ active, onChange }: Props) {
   const { username, logout } = useAuth();
-  const { theme, toggle } = useTheme();
   const { tier, setTier } = useTier();
   const [menuOpen, setMenuOpen] = useState(false);
   const [tierOpen, setTierOpen] = useState(false);
@@ -142,15 +138,6 @@ export default function TopBar({ active, onChange }: Props) {
       </nav>
 
       <div className="topbar-right">
-        <button
-          className="topbar-theme-toggle"
-          onClick={toggle}
-          title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
-
         {/* Tier switcher — demo control to preview Premium vs Basic gating. */}
         {FLAGS.tiers && (
         <div className="topbar-tier" ref={tierRef} onClick={() => setTierOpen((o) => !o)}>
