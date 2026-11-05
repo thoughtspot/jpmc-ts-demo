@@ -5,7 +5,7 @@
    =========================================================================== */
 
 :root {
-  --sl-cream: #f0f1f3;
+  --sl-cream: #e8f0fb;
   --sl-cream-2: #e9ebf4;
   --sl-white: #ffffff;
   --sl-evergreen: #0F1F80;
@@ -575,7 +575,7 @@ button {
   min-height: calc(100vh - 150px);
 }
 :root:not([data-theme='dark']) .tab-analytics .analytics-board-col .liveboard-wrapper {
-  background: #dbe6f6;
+  background: transparent;
 }
 .tab-analytics .analytics-toolbar {
   margin-bottom: 8px;
@@ -882,6 +882,14 @@ button {
   padding: 12px;
   min-height: 70vh;
   overflow: hidden;
+}
+/* Light theme: no frame — the liveboard blends seamlessly into the page. */
+:root:not([data-theme='dark']) .liveboard-wrapper {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
 }
 /* Dark frame — deep well + soft PRIMARY rim glow (token-driven, any base color). */
 :root[data-theme='dark'] .liveboard-wrapper {
@@ -3104,4 +3112,14 @@ button {
 @media (max-width: 900px) {
   .home-inner { grid-template-columns: 1fr; gap: 28px; }
   .home-brand-card { max-width: 320px; aspect-ratio: 16 / 10; }
+}
+
+/* Light theme: embed frames (Ask / AI Data Analyst) blend into the page like the liveboards. */
+:root:not([data-theme='dark']) .signals-embed,
+:root:not([data-theme='dark']) .ask-embed-wrapper {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
 }

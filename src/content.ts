@@ -33,7 +33,7 @@ export const CONTENT = {
     "inline": "Detail",
     "action": "Actions",
     "ask": "Ask Chase Travel AI",
-    "spotter": "Spotter"
+    "spotter": "AI Data Analyst"
   },
   "analyticsSubtitle": "Your live chase travel corporate travel analytics dashboard",
   "spotterSubtitle": "Ask questions of your Chase Travel data in natural language.",
