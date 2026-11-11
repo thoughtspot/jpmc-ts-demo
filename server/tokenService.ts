@@ -4,6 +4,8 @@
 // reaches the browser bundle.
 // ---------------------------------------------------------------------------
 
+import { isAllowedEmail } from '../shared/allowedEmail.js';
+
 export interface TokenServiceEnv {
   TOKEN_SERVICE_URL?: string;
   TOKEN_SERVICE_API_KEY?: string;
@@ -37,13 +39,9 @@ export function parseUsername(raw: unknown): string | null {
   return USERNAME_RE.test(username) ? username : null;
 }
 
-/** Only emails at this domain may sign in. Keep in sync with src/pages/Login.tsx. */
-const ALLOWED_EMAIL_DOMAIN = 'jpmchase.com';
-
-/** True if `username` is an email address on the allowed domain. */
+/** True if `username` is an email address on an allowed domain (list lives in shared/allowedEmail.ts). */
 export function isAllowedUsername(username: string): boolean {
-  const parts = username.toLowerCase().split('@');
-  return parts.length === 2 && parts[0].length > 0 && parts[1] === ALLOWED_EMAIL_DOMAIN;
+  return isAllowedEmail(username);
 }
 
 /** Error message plus its `cause` chain (fetch hides DNS/TLS failures in `cause`). */

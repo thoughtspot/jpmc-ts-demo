@@ -4,11 +4,11 @@ import { UsernameNotAllowedError } from '../lib/thoughtspot';
 import { Eye, EyeOff } from 'lucide-react';
 import ChaseTravelLogo from '../components/ChaseTravelLogo';
 import { CONTENT } from '../content';
+import { ALLOWED_EMAIL_DOMAINS, isAllowedEmail } from '../../shared/allowedEmail';
 
-// Only emails at this domain may sign in (also enforced by /api/ts-token).
-const ALLOWED_EMAIL_DOMAIN = 'jpmchase.com';
-const USERNAME_PLACEHOLDER = `name@${ALLOWED_EMAIL_DOMAIN}`;
-const USERNAME_NOT_ALLOWED_MESSAGE = `Please sign in with your @${ALLOWED_EMAIL_DOMAIN} email address.`;
+// Allowed domains are shared with /api/ts-token (see shared/allowedEmail.ts).
+const USERNAME_PLACEHOLDER = `name@${ALLOWED_EMAIL_DOMAINS[0]}`;
+const USERNAME_NOT_ALLOWED_MESSAGE = `Please sign in with your ${ALLOWED_EMAIL_DOMAINS.map((d) => `@${d}`).join(', ')} email address.`;
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -25,7 +25,7 @@ export default function Login() {
       setError('Please enter your username and password.');
       return;
     }
-    if (!username.trim().toLowerCase().endsWith(`@${ALLOWED_EMAIL_DOMAIN}`)) {
+    if (!isAllowedEmail(username)) {
       setError(USERNAME_NOT_ALLOWED_MESSAGE);
       return;
     }
