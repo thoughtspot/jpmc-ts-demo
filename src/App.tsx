@@ -10,8 +10,6 @@ import Landing from './tabs/Landing';
 import MyAnalytics from './tabs/MyAnalytics';
 import { FLAGS } from './flags';
 import Analytics from './tabs/Analytics';
-import Capacity from './tabs/Capacity';
-import AskChaseTravel from './tabs/AskChaseTravel';
 import SpotterTab from './tabs/Spotter';
 import {
   WORKSHEET_ID,
@@ -67,8 +65,6 @@ export default function App() {
         {tab === 'home' && <Landing onNavigate={changeTab} />}
         {tab === 'my-analytics' && <MyAnalytics />}
         {tab === 'analytics' && <Analytics />}
-        {tab === 'capacity' && <Capacity />}
-        {tab === 'ask' && tier === 'premium' && <AskChaseTravel />}
         {tab === 'spotter' && tier === 'premium' && <SpotterTab />}
       </main>
       <ChatBot

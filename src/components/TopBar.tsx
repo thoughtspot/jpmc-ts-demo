@@ -2,25 +2,11 @@ import {
   Home,
   BarChart3,
   LayoutGrid,
-  Sparkles,
   Bot,
   ChevronDown,
   LogOut,
   Crown,
   Check,
-  // candidate icons the label-resolver can pick from (see iconForLabel)
-  Truck,
-  Landmark,
-  CalendarClock,
-  CalendarCheck,
-  Package,
-  Stethoscope,
-  TrendingUp,
-  Users,
-  GraduationCap,
-  Building2,
-  Workflow,
-  Zap,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -28,31 +14,9 @@ import { useTier } from '../context/TierContext';
 import { CONTENT } from '../content';
 import { FLAGS } from '../flags';
 
-export type TabId = 'home' | 'my-analytics' | 'analytics' | 'carriers' | 'capacity' | 'ask' | 'spotter';
+export type TabId = 'home' | 'my-analytics' | 'analytics' | 'carriers' | 'spotter';
 
 type TabIcon = typeof BarChart3;
-
-// Pick a tab icon from its label so the inline / custom-action tabs match the
-// rebrand's use case (a "Loan Engagements" tab gets a bank icon, not a truck).
-// First keyword match wins; falls back to the passed default.
-const ICON_KEYWORDS: [RegExp, TabIcon][] = [
-  [/loan|credit|mortgage|lend|bank|financ|payment|invoice|billing|wallet/i, Landmark],
-  [/shift|roster|schedul|attendance|clock|timesheet|\bhours\b|coverage/i, CalendarClock],
-  [/leave|pto|vacation|absence|time.?off|holiday/i, CalendarCheck],
-  [/carrier|freight|truck|fleet|logistic|deliver|route|\blane\b|shipment/i, Truck],
-  [/inventory|stock|supply|warehouse|pharma|\bdrug\b|\bsku\b|restock|procure|order/i, Package],
-  [/patient|health|clinic|\bcare\b|medical|hospital|provider/i, Stethoscope],
-  [/deal|pipeline|revenue|sales|cadence|engagement|opportunit|quota|outreach/i, TrendingUp],
-  [/customer|account|client|member|contact|people|\brep\b|employee|officer|staff/i, Users],
-  [/course|training|learn|student|enroll|certif|academy/i, GraduationCap],
-  [/store|branch|site|facilit|property|location|region|office/i, Building2],
-  [/report|analytic|insight|dashboard|metric/i, BarChart3],
-  [/task|request|approval|workflow|process|ticket|\bcase\b|action/i, Workflow],
-];
-function iconForLabel(label: string, fallback: TabIcon): TabIcon {
-  for (const [re, icon] of ICON_KEYWORDS) if (re.test(label)) return icon;
-  return fallback;
-}
 
 const HOME_TAB: { id: TabId; label: string; icon: TabIcon } = {
   id: 'home',
@@ -66,21 +30,13 @@ export const TABS: { id: TabId; label: string; icon: TabIcon }[] = [
   ...(FLAGS.home ? [HOME_TAB] : []),
   { id: 'my-analytics', label: CONTENT.tabs.myReports, icon: LayoutGrid },
   { id: 'analytics', label: CONTENT.tabs.analytics, icon: BarChart3 },
-  // inline-insights + custom-action icons follow their label (default: list / action)
-  { id: 'capacity', label: CONTENT.tabs.action, icon: iconForLabel(CONTENT.tabs.action, Zap) },
-  { id: 'ask', label: CONTENT.tabs.ask, icon: Sparkles },
   { id: 'spotter', label: CONTENT.tabs.spotter, icon: Bot },
 ];
 
 // Tabs that only exist on Premium. On Basic they are hidden from the nav
 // entirely (App also bounces the user off one if the tier is switched while it
 // is open), rather than being shown and gated on click.
-export const PREMIUM_ONLY_TABS: TabId[] = ['ask', 'spotter'];
-
-// Decorative Chase Travel platform nav (sets product context, non-interactive).
-// Cap the auto-generated platform links at 2 so the top bar never gets crowded,
-// no matter how many the spec lists.
-export const PLATFORM_NAV = [...CONTENT.platformNav].slice(0, 2);
+export const PREMIUM_ONLY_TABS: TabId[] = ['spotter'];
 
 interface Props {
   active: TabId;
@@ -112,13 +68,6 @@ export default function TopBar({ active, onChange }: Props) {
     <header className="topbar">
       <div className="topbar-left">
         <img className="topbar-logo" src="/jpmc-travel.jpeg" alt="JPMC Travel" />
-        <nav className="topbar-platform-nav">
-          {PLATFORM_NAV.map((item) => (
-            <span key={item} className="topbar-platform-link">
-              {item}
-            </span>
-          ))}
-        </nav>
       </div>
 
       <nav className="topbar-tabs">

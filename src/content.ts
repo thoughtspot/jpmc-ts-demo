@@ -22,21 +22,13 @@ export const CONTENT = {
   ],
   "loginCardSubtitle": "Continue with your ThoughtSpot session",
   "loginDemoNoteHtml": "<strong>Continue</strong> using your existing ThoughtSpot session on <code>{host}</code>. This origin must be CORS-allowlisted on that cluster for data to load.",
-  "platformNav": [
-    "Overview",
-    "Analytics",
-    "Insights"
-  ],
   "tabs": {
     "myReports": "My Reports",
-    "analytics": "Analytics",
+    "analytics": "Corporate Travel Dashboard",
     "inline": "Detail",
-    "action": "Actions",
-    "ask": "Ask Chase Travel AI",
-    "spotter": "AI Data Analyst"
+    "spotter": "Chase Travel AI"
   },
   "analyticsSubtitle": "Your live chase travel corporate travel analytics dashboard",
-  "spotterSubtitle": "Ask questions of your Chase Travel data in natural language.",
   "inline": {
     "subtitleReady": "Select a row to view its insights",
     "subtitleIdle": "Key metrics across your portfolio",

@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTier } from '../context/TierContext';
 import { FLAGS } from '../flags';
-import { TABS, PLATFORM_NAV, PREMIUM_ONLY_TABS, TabId } from './TopBar';
+import { TABS, PREMIUM_ONLY_TABS, TabId } from './TopBar';
 
 // Persist the collapsed state so it survives reloads.
 const COLLAPSED_KEY = 'chase-travel.sidenav-collapsed';
@@ -75,16 +75,6 @@ export default function SideNav({ active, onChange }: Props) {
           {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
         </button>
       </div>
-
-      {PLATFORM_NAV.length > 0 && !collapsed && (
-        <nav className="sidenav-platform">
-          {PLATFORM_NAV.map((item) => (
-            <span key={item} className="sidenav-platform-link">
-              {item}
-            </span>
-          ))}
-        </nav>
-      )}
 
       <nav className="sidenav-tabs">
         {TABS.filter((t) => tier === 'premium' || !PREMIUM_ONLY_TABS.includes(t.id)).map((tab) => {

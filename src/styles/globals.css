@@ -1506,6 +1506,22 @@ button {
   overflow: hidden;
   padding: 6px;
 }
+/* Chase Travel AI tab — the Spotter embed fills the whole content area. */
+.tab-spotter {
+  width: 100%;
+  height: calc(100vh - var(--topbar-h));
+}
+.app-shell.is-sidenav .tab-spotter {
+  height: 100vh;
+}
+.spotter-fullpage-embed,
+.spotter-fullpage-embed > div,
+.spotter-fullpage-embed iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}
+
 .signals-embed > div,
 .signals-embed iframe {
   width: 100% !important;
@@ -3114,7 +3130,7 @@ button {
   .home-brand-card { max-width: 320px; aspect-ratio: 16 / 10; }
 }
 
-/* Light theme: embed frames (Ask / AI Data Analyst) blend into the page like the liveboards. */
+/* Light theme: embed frames (Ask / Chase Travel AI) blend into the page like the liveboards. */
 :root:not([data-theme='dark']) .signals-embed,
 :root:not([data-theme='dark']) .ask-embed-wrapper {
   background: transparent;

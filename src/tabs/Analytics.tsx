@@ -191,7 +191,7 @@ export default function Analytics() {
       <div className="analytics-toolbar">
         <div className="analytics-toolbar-left">
           <div>
-            <h1 className="page-title">Analytics</h1>
+            <h1 className="page-title">{CONTENT.tabs.analytics}</h1>
             <p className="page-subtitle">{CONTENT.analyticsSubtitle}</p>
           </div>
           <div className="analytics-filters">
